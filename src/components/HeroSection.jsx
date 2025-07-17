@@ -24,7 +24,7 @@ const HeroSection = ({ setActiveSection }) => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg"
         >
-          Hola, soy <span className="text-yellow-300">Tu Nombre</span>
+          Hola, soy <span className="text-yellow-300">Daniel Mata</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 50 }}
@@ -32,7 +32,7 @@ const HeroSection = ({ setActiveSection }) => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-xl md:text-2xl text-white mb-8 opacity-90"
         >
-          Desarrollador Frontend | Especialista en React. Creando experiencias web impactantes.
+          Desarrollador web | Especialista en React. Creando experiencias web impactantes e innovadoras.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 50 }}

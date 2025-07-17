@@ -37,7 +37,7 @@ const Navbar = ({ activeSection, setActiveSection, toggleTheme, isDarkMode }) =>
           transition={{ duration: 0.5 }}
           className="text-2xl font-bold text-gray-800 dark:text-white"
         >
-          &lt;TuNombre/&gt;
+          Portafolio D4MM
         </motion.div>
         <div className="hidden md:flex space-x-6 items-center">
           {navItems.map((item) => (

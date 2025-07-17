@@ -23,7 +23,7 @@ const AboutMe = () => {
             className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl mb-8 md:mb-0 flex-shrink-0"
           >
             <img
-              src="https://placehold.co/256x256/007bff/ffffff?text=Tu+Foto"
+              src="https://github.com/DanielMMiralles/Portafolio/blob/main/src/assets/cvimage.jpg"
               alt="Tu Foto de Perfil"
               className="w-full h-full object-cover"
             />
