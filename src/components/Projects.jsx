@@ -5,43 +5,55 @@ import { Github, Code } from 'lucide-react';
 const projectsData = [
   {
     id: 1,
-    title: 'Aplicación de Gestión de Tareas',
-    description: 'Una aplicación full-stack para organizar y gestionar tareas diarias con autenticación de usuario.',
-    image: 'https://placehold.co/600x400/FF5733/FFFFFF?text=Project+1',
-    technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
-    githubLink: '#',
+    title: 'Aplicación de Red Social',
+    description: 'Una aplicación full-stack para emular una red social con autenticación, publicaciones e interacción entre usuarios.',
+    image: ['https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_234617_localhost.jpeg', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_234617_localhost.jpeg'],
+    technologies: ['React', 'Node.js', 'firebase', 'Tailwind CSS'],
+    githubLink: 'https://github.com/DanielMMiralles/SocialApp',
     liveDemoLink: '#',
   },
   {
     id: 2,
-    title: 'Clon de E-commerce Moderno',
-    description: 'Un frontend de e-commerce responsive con carrito de compras y filtros de productos.',
-    image: 'https://placehold.co/600x400/33FF57/FFFFFF?text=Project+2',
-    technologies: ['React', 'Redux', 'Styled Components', 'Fake Store API'],
-    githubLink: '#',
+    title: 'Sistema de solicitudes de proyectos',
+    description: 'Aplicación para gestionar solicitudes de soluciones tecnológicas.',
+    image: ['https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/ProjectFlow/Screenshot_2025-07-11_220355.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/ProjectFlow/Screenshot_2025-07-11_220819.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/ProjectFlow/Screenshot_2025-07-11_220911.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/ProjectFlow/Screenshot_2025-07-11_221016.png'],
+    technologies: ['SQL', 'Python', 'Styled Components', 'Flet'],
+    githubLink: 'https://github.com/DanielMMiralles/Flet-project',
     liveDemoLink: '#',
   },
   {
     id: 3,
-    title: 'Dashboard Analítico Interactivo',
-    description: 'Dashboard para visualizar datos de ventas con gráficos interactivos y filtros dinámicos.',
-    image: 'https://placehold.co/600x400/3357FF/FFFFFF?text=Project+3',
-    technologies: ['React', 'D3.js', 'Chakra UI', 'REST API'],
-    githubLink: '#',
+    title: 'Sistema de administracion de proyectos y personal',
+    description: 'Sistema para la recepción de solicitudes y asignación de proyectos',
+    image: ['https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Flaticom/Screenshot_2025-07-11_222149.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Flaticom/Screenshot_2025-07-11_221246.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Flaticom/Screenshot_2025-07-11_221204.png', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Flaticom/Screenshot_2025-07-11_220457.png'],
+    technologies: ['PostgreSQL', 'Tailwind CSS', 'Chakra UI', 'Flet'],
+    githubLink: 'https://github.com/DanielMMiralles/Flet-project',
     liveDemoLink: '#',
   },
   {
     id: 4,
-    title: 'Blog Personal con Markdown',
-    description: 'Un blog personal donde puedo publicar artículos usando Markdown, con sistema de comentarios.',
+    title: 'Aplicaciones para el uso de APIs',
+    description: 'Aplicación para extraer y mapear información de una APIs.',
     image: 'https://placehold.co/600x400/FF33A1/FFFFFF?text=Project+4',
-    technologies: ['Next.js', 'MDX', 'GraphQL', 'PostgreSQL'],
-    githubLink: '#',
+    technologies: ['VueJS' ,'TypeScript' ,'Mocks'],
+    githubLink: 'https://github.com/DanielMMiralles/rick_and_morty',
     liveDemoLink: '#',
   },
 ];
 
 const ProjectCard = ({ project, index }) => {
+  const [currentImg, setCurrentImg] = useState(0);
+  const images = Array.isArray(project.image) ? project.image : [project.image];
+
+  const prevImg = (e) => {
+    e.stopPropagation();
+    setCurrentImg((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+  const nextImg = (e) => {
+    e.stopPropagation();
+    setCurrentImg((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -50,12 +62,40 @@ const ProjectCard = ({ project, index }) => {
       transition={{ duration: 0.6, delay: index * 0.15 }}
       className="bg-white dark:bg-gray-700 rounded-lg shadow-xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-300 group"
     >
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-48 object-cover group-hover:opacity-80 transition-opacity duration-300"
-        onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/CCCCCC/333333?text=Imagen+No+Disponible"; }}
-      />
+      <div className="relative w-full h-48 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+        <img
+          src={images[currentImg]}
+          alt={project.title}
+          className="w-full h-48 object-cover group-hover:opacity-80 transition-opacity duration-300"
+          onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/CCCCCC/333333?text=Imagen+No+Disponible"; }}
+        />
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevImg}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 dark:bg-gray-900/70 rounded-full p-1 shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition"
+              aria-label="Anterior"
+            >
+              &#8592;
+            </button>
+            <button
+              onClick={nextImg}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 dark:bg-gray-900/70 rounded-full p-1 shadow hover:bg-blue-200 dark:hover:bg-blue-800 transition"
+              aria-label="Siguiente"
+            >
+              &#8594;
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {images.map((_, i) => (
+                <span
+                  key={i}
+                  className={`inline-block w-2 h-2 rounded-full ${i === currentImg ? 'bg-blue-600 dark:bg-blue-400' : 'bg-gray-300 dark:bg-gray-600'}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
       <div className="p-6">
         <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">{project.title}</h3>
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">{project.description}</p>

@@ -23,7 +23,7 @@ const AboutMe = () => {
             className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl mb-8 md:mb-0 flex-shrink-0"
           >
             <img
-              src="https://github.com/DanielMMiralles/Portafolio/blob/main/src/assets/cvimage.jpg"
+              src="https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/cvimage.jpg"
               alt="Tu Foto de Perfil"
               className="w-full h-full object-cover"
             />
@@ -36,13 +36,13 @@ const AboutMe = () => {
             className="text-lg leading-relaxed"
           >
             <p className="mb-4">
-              Soy un desarrollador frontend apasionado con X años de experiencia en la creación de interfaces de usuario intuitivas y atractivas. Mi enfoque principal es React, donde disfruto construyendo componentes reutilizables y optimizando el rendimiento para ofrecer experiencias de usuario excepcionales.
+              Soy un desarrollador web de 21 años estudiante de ingenieria en sistemas en noveno semestre.
             </p>
             <p className="mb-4">
-              Me encanta resolver problemas complejos y siempre estoy buscando nuevas formas de mejorar mis habilidades y aprender las últimas tecnologías. Creo firmemente en el código limpio, las pruebas rigurosas y la colaboración efectiva en equipo.
+              Soy entusiasta de la programación y me especializo en el desarrollo de aplicaciones web utilizando tecnologías modernas como React, Node.js y bases de datos SQL y NoSQL.
             </p>
             <p>
-              Fuera del código, disfruto [menciona un hobby o interés, ej. leer, hacer senderismo, jugar videojuegos, aprender idiomas].
+              Actualmente sigo instruyendome en tecnologías emergentes y bases de datos en la nube como firebase, desarrollando experiencias dinámicas e intuitivas!
             </p>
           </motion.div>
         </div>
