@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, User, Code, Briefcase, Mail, Sun, Moon } from 'lucide-react';
+import { Home, User, Code, Briefcase, Mail, Train, Sun, Moon } from 'lucide-react';
 
 const Navbar = ({ activeSection, setActiveSection, toggleTheme, isDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +17,7 @@ const Navbar = ({ activeSection, setActiveSection, toggleTheme, isDarkMode }) =>
   const navItems = [
     { name: 'Inicio', icon: Home, id: 'home' },
     { name: 'Sobre Mí', icon: User, id: 'about' },
+    { name: 'Formación', icon: Train, id: 'training' },
     { name: 'Habilidades', icon: Code, id: 'skills' },
     { name: 'Proyectos', icon: Briefcase, id: 'projects' },
     { name: 'Contacto', icon: Mail, id: 'contact' },
@@ -24,7 +25,7 @@ const Navbar = ({ activeSection, setActiveSection, toggleTheme, isDarkMode }) =>
 
   const scrollToSection = (id) => {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    setActiveSection(id);
+    setActiveSection(id);-
     setIsOpen(false);
   };
 

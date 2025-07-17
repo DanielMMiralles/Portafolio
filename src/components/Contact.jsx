@@ -1,123 +1,99 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { Linkedin, Github, Mail, Instagram, Phone, Send } from 'lucide-react';
 
-const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('');
+const socialLinks = [
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/daniel-mata-33112a254/',
+    icon: <Linkedin className="w-8 h-8" color='#5FAAFF'/>,
+    color: 'bg-blue-600',
+    hover: 'hover:bg-blue-700 hover:shadow-blue-500',
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/DanielMMiralles',
+    icon: <Github className="w-8 h-8" color='#7D898A'/>,
+    color: 'bg-gray-800',
+    hover: 'hover:bg-gray-900 hover:shadow-gray-500',
+  },
+  {
+    name: 'Email',
+    url: 'mailto:damm172004@gmail.com',
+    icon: <Mail className="w-8 h-8" color='#FF8082'/>,
+    color: 'bg-red-500',
+    hover: 'hover:bg-red-600 hover:shadow-red-500',
+  },
+  {
+    name: 'WhatsApp',
+    url: 'https://wa.me/+584248677833', // Remember to replace with your actual WhatsApp number
+    icon: <Phone className="w-8 h-8" color='#AFF593'/>,
+    color: 'bg-green-500',
+    hover: 'hover:bg-green-600 hover:shadow-green-500',
+  },
+  {
+    name: 'Instagram',
+    url: 'https://www.instagram.com/daniel.a.mm/',
+    icon: <Instagram className="w-8 h-8" color='#EFC3CA'/>,
+    color: 'bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500',
+    hover: 'hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 hover:shadow-pink-500',
+  },
+];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const Contact = () => (
+  <section id="contact" className="py-24 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-white flex flex-col items-center justify-center min-h-[80vh]">
+    <div className="w-full flex flex-col items-center justify-center">
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl font-extrabold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent"
+      >
+        ¡Contáctame!
+      </motion.h2>
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('sending');
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Formulario enviado:', formData);
-      setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      setStatus('error');
-    }
-  };
-
-  return (
-    <section id="contact" className="py-20 px-4 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
-      <div className="container mx-auto max-w-2xl">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400"
-        >
-          Contáctame
-        </motion.h2>
+      {/* Contenedor principal para el avatar y los enlaces */}
+      {/* Usamos un layout de flexbox para organizar los elementos */}
+        {/* Central avatar/text: Ya está centrado con translate */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-8"
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', duration: 0.7 }}
+          className="relative z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-full shadow-2xl border-4 border-blue-200 dark:border-blue-700 w-32 h-32 flex flex-col items-center justify-center mb-4" // Añadimos mb-4 para espacio
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                Nombre
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                Mensaje
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
-              ></textarea>
-            </div>
-            <motion.button
-              type="submit"
-              className="w-full bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-semibold shadow-md hover:bg-blue-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={status === 'sending'}
-            >
-              {status === 'sending' ? 'Enviando...' : 'Enviar Mensaje'}
-            </motion.button>
-            {status === 'success' && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center text-green-600 mt-4"
-              >
-                ¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.
-              </motion.p>
-            )}
-            {status === 'error' && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center text-red-600 mt-4"
-              >
-                Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.
-              </motion.p>
-            )}
-          </form>
+          <Send className="w-10 h-10 text-blue-500 mb-2 animate-pulse" />
+          <span className="font-bold text-lg text-blue-700 dark:text-blue-300">¡Hablemos!</span>
         </motion.div>
-      </div>
-    </section>
-  );
-};
+
+        {/* Contenedor de iconos sociales - Usamos Flexbox para control sencillo */}
+        {/* flex-wrap para que los elementos salten a la siguiente línea si no caben */}
+        {/* justify-center para centrarlos horizontalmente en su fila */}
+        {/* gap-4 para espacio entre ellos */}
+        <div className="flex flex-wrap justify-center gap-4 w-full">
+          {socialLinks.map((item, i) => (
+            <motion.a
+              key={item.name}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }} // Animación de aparecer desde abajo
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ type: 'spring', duration: 0.7, delay: 0.1 + i * 0.08 }} // Retraso escalonado
+              className={`${item.color} ${item.hover} shadow-xl rounded-full p-4 flex items-center justify-center transition-all duration-300 group cursor-pointer border-4 border-white dark:border-gray-900 hover:scale-110 hover:shadow-2xl`}
+              aria-label={item.name}
+              // Ya no necesitamos 'style' para left/top/transform aquí
+            >
+              <span className="sr-only">{item.name}</span>
+              {item.icon}
+            </motion.a>
+          ))}
+        </div>
+      <p className="mt-12 text-center text-gray-600 dark:text-gray-300 text-lg max-w-xl mx-auto">
+        Puedes contactarme a través de cualquiera de mis redes sociales. ¡Estoy disponible para colaborar, responder dudas o simplemente conversar sobre tecnología!
+      </p>
+    </div>
+  </section>
+);
 
 export default Contact;

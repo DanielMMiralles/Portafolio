@@ -7,7 +7,7 @@ const projectsData = [
     id: 1,
     title: 'Aplicación de Red Social',
     description: 'Una aplicación full-stack para emular una red social con autenticación, publicaciones e interacción entre usuarios.',
-    image: ['https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_234617_localhost.jpeg', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_234617_localhost.jpeg'],
+    image: ['https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_235122_localhost.jpeg', 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/CrossLine/Screenshot_13-7-2025_234617_localhost.jpeg'],
     technologies: ['React', 'Node.js', 'firebase', 'Tailwind CSS'],
     githubLink: 'https://github.com/DanielMMiralles/SocialApp',
     liveDemoLink: '#',
@@ -33,7 +33,7 @@ const projectsData = [
   {
     id: 4,
     title: 'Aplicaciones para el uso de APIs',
-    description: 'Aplicación para extraer y mapear información de una APIs.',
+    description: 'Aplicación para extraer y mapear información de una API.',
     image: 'https://placehold.co/600x400/FF33A1/FFFFFF?text=Project+4',
     technologies: ['VueJS' ,'TypeScript' ,'Mocks'],
     githubLink: 'https://github.com/DanielMMiralles/rick_and_morty',

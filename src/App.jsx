@@ -6,6 +6,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Training from './components/Training';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -13,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'training', 'skills', 'projects', 'contact'];
       let currentActive = 'home';
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
@@ -68,6 +69,7 @@ const App = () => {
       <main className="min-h-screen">
         <HeroSection setActiveSection={setActiveSection} />
         <AboutMe />
+        <Training />
         <Skills />
         <Projects />
         <Contact />
