@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import AboutMe from './components/AboutMe';
@@ -52,13 +53,10 @@ const App = () => {
       if (newMode) {
         document.documentElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        console.log('[DEBUG] toggleTheme - dark mode enabled');
       } else {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        console.log('[DEBUG] toggleTheme - dark mode disabled');
       }
-      console.log('[DEBUG] toggleTheme - newMode:', newMode);
       return newMode;
     });
   };

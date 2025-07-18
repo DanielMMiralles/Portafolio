@@ -34,7 +34,7 @@ const projectsData = [
     id: 4,
     title: 'Aplicaciones para el uso de APIs',
     description: 'Aplicación para extraer y mapear información de una API.',
-    image: 'https://placehold.co/600x400/FF33A1/FFFFFF?text=Project+4',
+    image: 'https://raw.githubusercontent/DanielMMiralles/Portafolio/main/src/assets/Screenshot_17-7-2025_13511_localhost.jpeg',
     technologies: ['VueJS' ,'TypeScript' ,'Mocks'],
     githubLink: 'https://github.com/DanielMMiralles/rick_and_morty',
     liveDemoLink: '#',
@@ -116,17 +116,6 @@ const ProjectCard = ({ project, index }) => {
           >
             <Github className="h-5 w-5 mr-1" /> GitHub
           </motion.a>
-          {project.liveDemoLink && (
-            <motion.a
-              href={project.liveDemoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center"
-              whileHover={{ x: 5 }}
-            >
-              <Code className="h-5 w-5 mr-1" /> Demo
-            </motion.a>
-          )}
         </div>
       </div>
     </motion.div>

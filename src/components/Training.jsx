@@ -9,14 +9,14 @@ const trainings = [
     date: '2024',
     description: 'Profundización en hooks, context, optimización de rendimiento y patrones avanzados de React.',
     icon: <Laptop className="w-8 h-8 text-black-500" />,
-    color: 'from-black-400 to-black-600'
+    color: 'from-customreact to-gray-900 dark:from-white dark:to-white'
   },
   {
     title: 'Desarrollo de aplicaciones web Full Stack con JavaScript',
     institution: 'Adakademy',
     date: '2023',
     description: 'Manejo de APIs para extracción y mapeo de informacion utilizando vue.js',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/blob/main/src/assets/adakademy_logo_azul.png' className="w-8 h-8 text-blue-500" />,
+    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/adakademy_logo_azul.png' className="w-12 h-12 text-blue-500" />,
     color: 'from-blue-400 to-blue-600'
   },
   {
@@ -24,7 +24,7 @@ const trainings = [
     institution: 'Alegra',
     date: '2023',
     description: 'Diseño responsivo, animaciones avanzadas y mejores prácticas de accesibilidad.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/blob/main/src/assets/Logotipo-Alegra.png' className="w-8 h-8 text-green-500" />,
+    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Logotipo-Alegra.png' className="w-8 h-8 text-green-500" />,
     color: 'from-green-400 to-green-600'
   },
   {
@@ -32,16 +32,16 @@ const trainings = [
     institution: 'datacamp',
     date: '2024',
     description: 'Consultas avanzadas, modelado relacional y optimización de bases de datos.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/blob/main/src/assets/datacamp-logo-freelogovectors.net_.png' className="w-8 h-8 text-color-#7FFFD4" />,
-    color: 'from-color-#00BBBC to-color-#00A3A4'
+    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/datacamp-logo-freelogovectors.net_.png' className="w-8 h-8 text-color-#7FFFD4" />,
+    color: 'from-green-400 to-blue-700'
   },
   {
     title: 'Ingeniero en sistemas',
     institution: 'Universidad Santa Maria',
     date: '2020-(En curso)',
     description: 'Formación integral en ingeniería de sistemas, programación y gestión de proyectos tecnológicos.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/blob/main/src/assets/Logo_USM.png' className="w-8 h-8 text-yellow-500" />,
-    color: 'from-yellow-400 to-yellow-600'
+    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Logo_USM.png' className="w-8 h-8 text-purple-500" />,
+    color: 'from-purple-400 to-purple-600'
   },
 ];
 
@@ -81,8 +81,12 @@ const Training = () => (
           >
             <div className={`absolute -top-10 right-0 w-32 h-32 rounded-full blur-2xl opacity-40 bg-gradient-to-br ${item.color}`}></div>
             <div className="z-10 flex flex-col items-center">
-              <div className="mb-4 animate-bounce-slow">
-                {item.icon}
+              <div className="mb-4 animate-bounce-slow flex items-center justify-center">
+                {typeof item.icon === 'string' ? (
+                  <img src={item.icon} alt={item.title + ' logo'} className="w-16 h-16 object-contain mx-auto" />
+                ) : (
+                  React.cloneElement(item.icon, { className: 'w-16 h-16 object-contain mx-auto' })
+                )}
               </div>
               <h3 className="text-lg font-bold text-center mb-1 text-blue-700 dark:text-blue-300 drop-shadow-lg">{item.title}</h3>
               <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 text-center">{item.institution} &bull; {item.date}</p>

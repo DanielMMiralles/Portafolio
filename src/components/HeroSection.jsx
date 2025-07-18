@@ -53,8 +53,9 @@ const HeroSection = ({ setActiveSection }) => {
             className="border-2 border-white text-white px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-white hover:text-blue-600 dark:hover:text-gray-900 transition-all duration-300 transform hover:scale-105"
             whileHover={{ scale: 1.08, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
             whileTap={{ scale: 0.95 }}
+            onClick={ () => window.open('https://drive.google.com/file/d/1oC3x1ofl_deqcGZG-f5gl_ix9sD5fl5x/view?usp=drive_link', '_blank') }
           >
-            Descargar CV
+            Visualizar CV
           </motion.a>
         </motion.div>
       </div>
