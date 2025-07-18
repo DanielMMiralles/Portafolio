@@ -34,7 +34,7 @@ const projectsData = [
     id: 4,
     title: 'Aplicaciones para el uso de APIs',
     description: 'Aplicación para extraer y mapear información de una API.',
-    image: 'https://raw.githubusercontent/DanielMMiralles/Portafolio/main/src/assets/Screenshot_17-7-2025_13511_localhost.png',
+    image: 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Screenshot_17-7-2025_13511_localhost.png',
     technologies: ['VueJS' ,'TypeScript' ,'Mocks'],
     githubLink: 'https://github.com/DanielMMiralles/rick_and_morty',
     liveDemoLink: '#',
