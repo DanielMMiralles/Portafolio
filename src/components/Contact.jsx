@@ -1,99 +1,362 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Github, Mail, Instagram, Phone, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { Linkedin, Github, Mail, Phone, Instagram, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { SectionHeader } from './ScrollReveal';
+
+/* ─── Replace these with your real EmailJS IDs ─── */
+const EMAILJS_SERVICE_ID  = 'service_o6i3dqk';
+const EMAILJS_TEMPLATE_ID = 'template_ag1fdo9';
+const EMAILJS_PUBLIC_KEY  = 'Dzy9uXyL9kHcErsDG';
 
 const socialLinks = [
   {
     name: 'LinkedIn',
     url: 'https://www.linkedin.com/in/daniel-mata-33112a254/',
-    icon: <Linkedin className="w-8 h-8" color='#5FAAFF'/>,
-    color: 'bg-blue-600',
-    hover: 'hover:bg-blue-700 hover:shadow-blue-500',
+    icon: <Linkedin size={20} />,
+    color: '#0A66C2',
+    glow: 'rgba(10,102,194,0.3)',
   },
   {
     name: 'GitHub',
     url: 'https://github.com/DanielMMiralles',
-    icon: <Github className="w-8 h-8" color='#7D898A'/>,
-    color: 'bg-gray-800',
-    hover: 'hover:bg-gray-900 hover:shadow-gray-500',
+    icon: <Github size={20} />,
+    color: '#EAE2B7',
+    glow: 'rgba(234,226,183,0.2)',
   },
   {
     name: 'Email',
     url: 'mailto:damm172004@gmail.com',
-    icon: <Mail className="w-8 h-8" color='#FF8082'/>,
-    color: 'bg-red-500',
-    hover: 'hover:bg-red-600 hover:shadow-red-500',
+    icon: <Mail size={20} />,
+    color: 'var(--ember-crimson)',
+    glow: 'var(--glow-red)',
   },
   {
     name: 'WhatsApp',
-    url: 'https://wa.me/+584248677833', // Remember to replace with your actual WhatsApp number
-    icon: <Phone className="w-8 h-8" color='#AFF593'/>,
-    color: 'bg-green-500',
-    hover: 'hover:bg-green-600 hover:shadow-green-500',
+    url: 'https://wa.me/+584248677833',
+    icon: <Phone size={20} />,
+    color: '#25D366',
+    glow: 'rgba(37,211,102,0.25)',
   },
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/daniel.a.mm/',
-    icon: <Instagram className="w-8 h-8" color='#EFC3CA'/>,
-    color: 'bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500',
-    hover: 'hover:from-pink-600 hover:via-red-600 hover:to-yellow-600 hover:shadow-pink-500',
+    icon: <Instagram size={20} />,
+    color: '#E1306C',
+    glow: 'rgba(225,48,108,0.25)',
   },
 ];
 
-const Contact = () => (
-  <section id="contact" className="py-24 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-white flex flex-col items-center justify-center min-h-[80vh]">
-    <div className="w-full flex flex-col items-center justify-center">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold text-center mb-10 bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent"
-      >
-        ¡Contáctame!
-      </motion.h2>
+/* ── Social Icon ─────────────────────────────── */
+const SocialIcon = ({ item, index }) => (
+  <motion.a
+    href={item.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={item.name}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: 0.1 + index * 0.08, duration: 0.4 }}
+    whileHover={{ y: -5, boxShadow: `0 8px 20px ${item.glow}` }}
+    whileTap={{ scale: 0.92 }}
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '6px',
+      padding: '1rem 1.25rem',
+      borderRadius: '14px',
+      background: 'var(--ember-card)',
+      border: '1px solid var(--border-subtle)',
+      color: item.color,
+      textDecoration: 'none',
+      transition: 'border-color 0.3s, box-shadow 0.3s',
+      cursor: 'none',
+      minWidth: '80px',
+    }}
+  >
+    {item.icon}
+    <span style={{
+      fontFamily: 'var(--font-mono)',
+      fontSize: '0.65rem',
+      color: 'var(--ember-muted)',
+      letterSpacing: '0.04em',
+    }}>{item.name}</span>
+  </motion.a>
+);
 
-      {/* Contenedor principal para el avatar y los enlaces */}
-      {/* Usamos un layout de flexbox para organizar los elementos */}
-        {/* Central avatar/text: Ya está centrado con translate */}
+/* ── Floating Label Input ────────────────────── */
+const FloatInput = ({ id, label, type = 'text', value, onChange, required, multiline = false }) => {
+  const [focused, setFocused] = useState(false);
+  const raised = focused || value.length > 0;
+
+  const baseStyle = {
+    width: '100%',
+    background: 'rgba(31,8,8,0.8)',
+    border: `1px solid ${focused ? 'var(--ember-crimson)' : 'var(--border-subtle)'}`,
+    borderRadius: '10px',
+    padding: multiline ? '1.5rem 1rem 0.75rem' : '1.5rem 1rem 0.5rem',
+    color: 'var(--ember-ash)',
+    fontFamily: 'var(--font-body)',
+    fontSize: '0.95rem',
+    outline: 'none',
+    resize: multiline ? 'vertical' : 'none',
+    minHeight: multiline ? '130px' : 'auto',
+    boxShadow: focused ? '0 0 0 3px var(--glow-red)' : 'none',
+    transition: 'border-color 0.25s, box-shadow 0.25s',
+  };
+
+  return (
+    <div style={{ position: 'relative', width: '100%' }}>
+      <label
+        htmlFor={id}
+        style={{
+          position: 'absolute',
+          left: '1rem',
+          top: raised ? '0.45rem' : '50%',
+          transform: multiline ? (raised ? 'none' : 'translateY(80%)') : (raised ? 'none' : 'translateY(-50%)'),
+          fontFamily: 'var(--font-body)',
+          fontSize: raised ? '0.68rem' : '0.9rem',
+          color: focused ? 'var(--ember-orange)' : 'var(--ember-muted)',
+          pointerEvents: 'none',
+          transition: 'all 0.2s',
+          letterSpacing: raised ? '0.05em' : 0,
+          fontWeight: raised ? 500 : 400,
+          zIndex: 1,
+        }}
+      >
+        {label}
+      </label>
+      {multiline ? (
+        <textarea
+          id={id}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={required}
+          style={baseStyle}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          value={value}
+          onChange={onChange}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          required={required}
+          style={baseStyle}
+        />
+      )}
+    </div>
+  );
+};
+
+/* ── Contact ─────────────────────────────────── */
+const Contact = () => {
+  const formRef = useRef(null);
+  const [form, setForm]     = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+
+  const handleChange = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY,
+      );
+      setStatus('success');
+      setForm({ name: '', email: '', message: '' });
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
+
+  const isSending = status === 'sending';
+
+  return (
+    <section
+      id="contact"
+      style={{
+        padding: '7rem 1.5rem',
+        background: '#0A0000',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Mesh bg */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
+        background: 'radial-gradient(ellipse 70% 50% at 50% 100%, rgba(193,18,31,0.08) 0%, transparent 70%)',
+      }} />
+
+      <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        <SectionHeader
+          eyebrow="✦ Trabajemos juntos ✦"
+          title="Contacto"
+          subtitle="¿Tienes un proyecto en mente o buscas incorporar a un desarrollador a tu equipo? Hablemos."
+        />
+
+        {/* Availability badge */}
         <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', duration: 0.7 }}
-          className="relative z-10 bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-full shadow-2xl border-4 border-blue-200 dark:border-blue-700 w-32 h-32 flex flex-col items-center justify-center mb-4" // Añadimos mb-4 para espacio
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          style={{ display: 'flex', justifyContent: 'center', marginBottom: '3rem' }}
         >
-          <Send className="w-10 h-10 text-blue-500 mb-2 animate-pulse" />
-          <span className="font-bold text-lg text-blue-700 dark:text-blue-300">¡Hablemos!</span>
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            background: 'rgba(247,127,0,0.08)',
+            border: '1px solid rgba(247,127,0,0.3)',
+            borderRadius: '999px',
+            padding: '0.5rem 1.25rem',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.78rem',
+            color: 'var(--ember-amber)',
+          }}>
+            <span style={{
+              width: '8px', height: '8px', borderRadius: '50%',
+              background: 'var(--ember-orange)',
+              animation: 'available-pulse 2s infinite',
+            }} />
+            Disponible para nuevos proyectos y oportunidades
+          </div>
         </motion.div>
 
-        {/* Contenedor de iconos sociales - Usamos Flexbox para control sencillo */}
-        {/* flex-wrap para que los elementos salten a la siguiente línea si no caben */}
-        {/* justify-center para centrarlos horizontalmente en su fila */}
-        {/* gap-4 para espacio entre ellos */}
-        <div className="flex flex-wrap justify-center gap-4 w-full">
-          {socialLinks.map((item, i) => (
-            <motion.a
-              key={item.name}
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }} // Animación de aparecer desde abajo
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ type: 'spring', duration: 0.7, delay: 0.1 + i * 0.08 }} // Retraso escalonado
-              className={`${item.color} ${item.hover} shadow-xl rounded-full p-4 flex items-center justify-center transition-all duration-300 group cursor-pointer border-4 border-white dark:border-gray-900 hover:scale-110 hover:shadow-2xl`}
-              aria-label={item.name}
-              // Ya no necesitamos 'style' para left/top/transform aquí
-            >
-              <span className="sr-only">{item.name}</span>
-              {item.icon}
-            </motion.a>
-          ))}
+        {/* 2-col layout */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '3rem',
+          alignItems: 'start',
+        }}>
+
+          {/* Left — Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h3 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.2rem',
+              fontWeight: 600,
+              color: 'var(--ember-ash)',
+              marginBottom: '1.5rem',
+            }}>Envíame un mensaje</h3>
+
+            <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <FloatInput id="name"    label="Tu nombre"   value={form.name}    onChange={handleChange('name')}    required name="from_name" />
+              <FloatInput id="email"   label="Tu email"    type="email"  value={form.email}   onChange={handleChange('email')}   required name="reply_to" />
+              <FloatInput id="message" label="Tu mensaje"  value={form.message} onChange={handleChange('message')}  required multiline name="message" />
+
+              {/* Status messages */}
+              {status === 'success' && (
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: 'var(--ember-amber)', fontFamily: 'var(--font-body)', fontSize: '0.875rem',
+                  background: 'rgba(252,191,73,0.08)', border: '1px solid rgba(252,191,73,0.3)',
+                  borderRadius: '8px', padding: '0.75rem 1rem',
+                }}>
+                  <CheckCircle size={16} /> ¡Mensaje enviado! Te responderé pronto.
+                </motion.div>
+              )}
+              {status === 'error' && (
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: 'var(--ember-crimson)', fontFamily: 'var(--font-body)', fontSize: '0.875rem',
+                  background: 'rgba(193,18,31,0.08)', border: '1px solid rgba(193,18,31,0.3)',
+                  borderRadius: '8px', padding: '0.75rem 1rem',
+                }}>
+                  <AlertCircle size={16} /> Error al enviar. Configura EmailJS o contáctame directamente.
+                </motion.div>
+              )}
+
+              <motion.button
+                type="submit"
+                disabled={isSending}
+                className="btn-ember"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                  fontSize: '0.95rem', opacity: isSending ? 0.7 : 1,
+                }}
+                whileHover={!isSending ? { scale: 1.03, y: -2 } : {}}
+                whileTap={!isSending ? { scale: 0.97 } : {}}
+              >
+                <Send size={16} />
+                {isSending ? 'Enviando...' : 'Enviar mensaje'}
+              </motion.button>
+            </form>
+          </motion.div>
+
+          {/* Right — Info + Social */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <h3 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.2rem',
+              fontWeight: 600,
+              color: 'var(--ember-ash)',
+              marginBottom: '0.75rem',
+            }}>¿Hablamos?</h3>
+            <p style={{
+              color: 'var(--ember-muted)',
+              fontSize: '0.9rem',
+              lineHeight: 1.7,
+              marginBottom: '2rem',
+            }}>
+              Estoy abierto a colaboraciones, proyectos freelance y oportunidades laborales. 
+              No dudes en escribirme — habitualmente respondo en menos de 24 horas.
+            </p>
+
+            {/* Social icons grid */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
+              {socialLinks.map((item, i) => (
+                <SocialIcon key={item.name} item={item} index={i} />
+              ))}
+            </div>
+
+            {/* Direct email */}
+            <div style={{
+              marginTop: '2rem',
+              padding: '1rem',
+              background: 'var(--ember-card)',
+              border: '1px solid var(--border-ember)',
+              borderRadius: '12px',
+            }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--ember-muted)', marginBottom: '4px', letterSpacing: '0.05em' }}>EMAIL DIRECTO</p>
+              <a
+                href="mailto:damm172004@gmail.com"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '0.95rem',
+                  color: 'var(--ember-orange)',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                damm172004@gmail.com
+              </a>
+            </div>
+          </motion.div>
         </div>
-      <p className="mt-12 text-center text-gray-600 dark:text-gray-300 text-lg max-w-xl mx-auto">
-        Puedes contactarme a través de cualquiera de mis redes sociales. ¡Estoy disponible para colaborar, responder dudas o simplemente conversar sobre tecnología!
-      </p>
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
+};
 
 export default Contact;

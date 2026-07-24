@@ -1,3 +1,507 @@
+/* ─── Google Fonts — must be first ─────────── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* ─── Film Grain Texture (SVG inline data) ─── */
+@property --grain-opacity {
+  syntax: '<number>';
+  initial-value: 0.035;
+  inherits: false;
+}
+
+/* ============================================
+   EMBER FORGE — Design System
+   Portfolio D4MM · Daniel Mata
+   ============================================ */
+
+/* ─── Design Tokens ─────────────────────────── */
+:root {
+  /* Backgrounds */
+  --ember-bg:        #0A0000;
+  --ember-surface:   #150505;
+  --ember-card:      #1F0808;
+  --ember-card-2:    #2A0A0A;
+
+  /* Brand Colors */
+  --ember-crimson:   #C1121F;
+  --ember-red:       #D62828;
+  --ember-orange:    #F77F00;
+  --ember-amber:     #FCBF49;
+
+  /* Text */
+  --ember-ash:       #EAE2B7;
+  --ember-ash-dim:   #C8B99A;
+  --ember-muted:     #9A7060;
+  --ember-faint:     #5A4035;
+
+  /* Glows */
+  --glow-red:        rgba(193, 18, 31, 0.25);
+  --glow-red-strong: rgba(193, 18, 31, 0.5);
+  --glow-orange:     rgba(247, 127, 0, 0.20);
+  --glow-amber:      rgba(252, 191, 73, 0.15);
+
+  /* Borders */
+  --border-ember:    rgba(214, 40, 40, 0.25);
+  --border-orange:   rgba(247, 127, 0, 0.3);
+  --border-subtle:   rgba(90, 64, 53, 0.4);
+
+  /* Typography */
+  --font-display:    'Space Grotesk', system-ui, sans-serif;
+  --font-body:       'Inter', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', monospace;
+
+  /* Timing */
+  --ease-ember:      cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ignite:     cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Base Reset ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--ember-bg);
+  color: var(--ember-ash);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  cursor: none; /* Custom cursor takes over */
+  overflow-x: hidden;
+}
+
+/* ── Film Grain overlay (pseudo on body) ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  pointer-events: none;
+  opacity: 0.015;
+  background-image: radial-gradient(rgba(255,255,255,0.4) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+/* Restore cursor on touch devices */
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
+/* ─── Custom Scrollbar ──────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ember-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--ember-crimson), var(--ember-orange));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--ember-red), var(--ember-amber));
+}
+
+/* ─── Typography Defaults ───────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ─── Selection ─────────────────────────────── */
+::selection {
+  background: var(--ember-crimson);
+  color: var(--ember-ash);
+}
+
+/* ─── Keyframes ─────────────────────────────── */
+
+/* Glitch effect */
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 98% 0); transform: translate(-3px, 0); }
+  20%       { clip-path: inset(20% 0 60% 0); transform: translate(3px, 0); }
+  40%       { clip-path: inset(50% 0 30% 0); transform: translate(-2px, 0); }
+  60%       { clip-path: inset(80% 0 5% 0);  transform: translate(4px, 0); }
+  80%       { clip-path: inset(10% 0 85% 0); transform: translate(-1px, 0); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(95% 0 0 0); transform: translate(3px, 0); color: var(--ember-orange); }
+  25%       { clip-path: inset(40% 0 40% 0); transform: translate(-3px, 0); }
+  50%       { clip-path: inset(70% 0 10% 0); transform: translate(2px, 0); color: var(--ember-crimson); }
+  75%       { clip-path: inset(5% 0 80% 0);  transform: translate(-4px, 0); }
+}
+
+/* Ember float (for particles simulation in CSS) */
+@keyframes ember-float {
+  0%   { transform: translateY(0) translateX(0) scale(1);    opacity: 0.8; }
+  50%  { transform: translateY(-60px) translateX(15px) scale(0.8); opacity: 0.5; }
+  100% { transform: translateY(-120px) translateX(-10px) scale(0.3); opacity: 0; }
+}
+
+/* Pulse ember (for glow pulsing) */
+@keyframes pulse-ember {
+  0%, 100% { box-shadow: 0 0 8px var(--glow-red), 0 0 20px var(--glow-red); }
+  50%       { box-shadow: 0 0 20px var(--glow-red-strong), 0 0 40px var(--glow-orange); }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { box-shadow: 0 0 6px var(--glow-orange); opacity: 1; }
+  50%       { box-shadow: 0 0 18px var(--glow-orange), 0 0 30px var(--glow-amber); opacity: 0.8; }
+}
+
+/* Shimmer for buttons */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* SVG draw (for timeline) */
+@keyframes draw-line {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(8px); opacity: 0.5; }
+}
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Node pulse */
+@keyframes node-pulse {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 var(--glow-red-strong); }
+  70%  { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(193,18,31,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(193,18,31,0); }
+}
+
+/* Fade up */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Available badge dot */
+@keyframes available-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ─── Utility Classes ─────────────────────────── */
+
+/* Text gradient */
+.text-ember-gradient {
+  background: linear-gradient(135deg, var(--ember-crimson), var(--ember-orange), var(--ember-amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-red-orange-gradient {
+  background: linear-gradient(90deg, var(--ember-red), var(--ember-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section headings */
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ember-orange);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Ember card base */
+.ember-card {
+  background: var(--ember-card);
+  border: 1px solid var(--border-ember);
+  border-radius: 16px;
+  transition: border-color 0.3s var(--ease-ember),
+              box-shadow 0.3s var(--ease-ember),
+              transform 0.3s var(--ease-ember);
+}
+
+.ember-card:hover {
+  border-color: var(--ember-crimson);
+  box-shadow: 0 8px 32px var(--glow-red), 0 0 0 1px var(--ember-crimson);
+}
+
+/* Glow button */
+.btn-ember {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  box-sizing: border-box;
+  background: var(--ember-crimson);
+  color: var(--ember-ash);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  border: 1.5px solid transparent;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  transition: transform 0.2s var(--ease-ignite), box-shadow 0.3s var(--ease-ember);
+  box-shadow: 0 4px 20px var(--glow-red);
+}
+
+.btn-ember::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+  border-radius: inherit;
+}
+
+.btn-ember:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 30px var(--glow-red-strong), 0 0 60px var(--glow-orange);
+}
+
+.btn-outline-ember {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--ember-orange);
+  border: 1.5px solid var(--ember-orange);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0 1.75rem;
+  border-radius: 9999px;
+  cursor: none;
+  vertical-align: middle;
+  transition: all 0.3s var(--ease-ember);
+}
+
+.btn-outline-ember:hover {
+  background: rgba(247, 127, 0, 0.1);
+  box-shadow: 0 0 20px var(--glow-orange);
+  transform: translateY(-2px);
+}
+
+/* Section divider */
+.ember-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ember-crimson), var(--ember-orange));
+  border-radius: 999px;
+  margin: 0 auto 3rem;
+}
+
+/* Section separator line with glow */
+.section-separator {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember-crimson) 30%, var(--ember-orange) 70%, transparent);
+  opacity: 0.25;
+  margin: 0;
+}
+
+.section-separator::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 9px;
+  background: radial-gradient(ellipse, rgba(247,127,0,0.45) 0%, transparent 80%);
+  filter: blur(3px);
+}
+
+/* Projects Coming Soon placeholder */
+.coming-soon-card {
+  position: relative;
+  border: 1px dashed var(--border-orange);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  background: rgba(20,4,4,0.4);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.coming-soon-card:hover {
+  border-color: var(--ember-orange);
+  box-shadow: 0 0 40px rgba(247,127,0,0.08), inset 0 0 60px rgba(193,18,31,0.04);
+}
+
+/* Tech badge */
+.tech-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-orange);
+  color: var(--ember-amber);
+  background: rgba(247, 127, 0, 0.06);
+  letter-spacing: 0.05em;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tech-badge:hover {
+  background: rgba(247, 127, 0, 0.15);
+  border-color: var(--ember-amber);
+}
+
+/* Skill level tag */
+.skill-tag-expert     { color: var(--ember-amber);   border-color: var(--ember-amber);   background: rgba(252,191,73,0.08); }
+.skill-tag-advanced   { color: var(--ember-orange);  border-color: var(--ember-orange);  background: rgba(247,127,0,0.08); }
+.skill-tag-intermediate { color: var(--ember-muted); border-color: var(--ember-muted);   background: rgba(154,112,96,0.08); }
+
+/* Spotlight card overlay */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(193,18,31,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  opacity: 0;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Hexagonal clip-path */
+.hex-clip {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Floating label input */
+.input-ember {
+  background: rgba(31, 8, 8, 0.8);
+  border: 1px solid var(--border-subtle);
+  color: var(--ember-ash);
+  font-family: var(--font-body);
+  border-radius: 10px;
+  padding: 1rem 1rem 0.5rem;
+  width: 100%;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.input-ember:focus {
+  border-color: var(--ember-crimson);
+  box-shadow: 0 0 0 3px var(--glow-red);
+}
+
+.input-ember::placeholder {
+  color: var(--ember-faint);
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Spotlight cursor follow (applied via JS) ── */
+.cursor-spotlight {
+  --sx: 50%;
+  --sy: 50%;
+  background: radial-gradient(
+    600px circle at var(--sx) var(--sy),
+    rgba(193,18,31,0.06) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+/* ─── Scroll snap progress bar ─────────────── */
+.section-progress-pill {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 8000;
+}
+
+.section-progress-pip {
+  width: 4px;
+  height: 4px;
+  border-radius: 99px;
+  background: var(--ember-faint);
+  transition: background 0.3s, height 0.3s, box-shadow 0.3s;
+}
+
+.section-progress-pip.active {
+  height: 20px;
+  background: var(--ember-orange);
+  box-shadow: 0 0 8px rgba(247,127,0,0.6);
+}
+
+@media (max-width: 768px) {
+  .section-progress-pill { display: none; }
+  body::before { animation: none; opacity: 0.02; }
+}

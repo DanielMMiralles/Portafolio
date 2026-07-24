@@ -1,116 +1,265 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, User, Code, Briefcase, Mail, Train, Sun, Moon } from 'lucide-react';
+import { Home, User, Code, Briefcase, Mail, BookOpen, X, Menu, Layers } from 'lucide-react';
+import d4mmLogo from '../assets/d4mm_logo.jpg';
 
-const Navbar = ({ activeSection, setActiveSection, toggleTheme, isDarkMode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+/* ── Logo Component ─────────────────────────── */
+const D4MMLogo = () => (
+  <img
+    src={d4mmLogo}
+    alt="D4MM logo"
+    style={{ height: '32px', width: 'auto', objectFit: 'contain', borderRadius: '4px' }}
+  />
+);
 
+/* ── Nav Items ──────────────────────────────── */
+const navItems = [
+  { name: 'Inicio',      icon: Home,      id: 'home'       },
+  { name: 'Sobre Mí',    icon: User,      id: 'about'      },
+  { name: 'Experiencia', icon: Briefcase, id: 'experience' },
+  { name: 'Formación',   icon: BookOpen,  id: 'training'   },
+  { name: 'Habilidades', icon: Code,      id: 'skills'     },
+  { name: 'Proyectos',   icon: Layers,    id: 'projects'   },
+  { name: 'Contacto',    icon: Mail,      id: 'contact'    },
+];
+
+const Navbar = ({ activeSection, setActiveSection }) => {
+  const [isOpen,     setIsOpen]     = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
+
+  /* Scroll detection */
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navItems = [
-    { name: 'Inicio', icon: Home, id: 'home' },
-    { name: 'Sobre Mí', icon: User, id: 'about' },
-    { name: 'Formación', icon: Train, id: 'training' },
-    { name: 'Habilidades', icon: Code, id: 'skills' },
-    { name: 'Proyectos', icon: Briefcase, id: 'projects' },
-    { name: 'Contacto', icon: Mail, id: 'contact' },
-  ];
+  /* Close drawer on ESC */
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setIsOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  /* Lock scroll when drawer open */
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   const scrollToSection = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    setActiveSection(id);-
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(id);
     setIsOpen(false);
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 dark:bg-gray-900/80 shadow-lg backdrop-blur-md' : 'bg-transparent'}`}>
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-2xl font-bold text-gray-800 dark:text-white"
-        >
-          Portafolio D4MM
-        </motion.div>
-        <div className="hidden md:flex space-x-6 items-center">
-          {navItems.map((item) => (
-            <motion.button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 flex items-center group
-                ${activeSection === item.id ? 'text-blue-600 dark:text-blue-400 font-semibold' : ''}`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <item.icon className="mr-2 h-5 w-5" />
-              <span className="relative">
-                {item.name}
-                {activeSection === item.id && (
-                  <motion.span
-                    layoutId="underline"
-                    className="absolute left-0 bottom-[-5px] h-[2px] w-full bg-blue-600 dark:bg-blue-400"
-                  />
-                )}
-              </span>
-            </motion.button>
-          ))}
+    <>
+      <nav
+        style={{
+          position: 'fixed',
+          top: '3px', /* below progress bar */
+          left: 0,
+          right: 0,
+          zIndex: 9000,
+          transition: 'background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease',
+          background: scrolled
+            ? 'rgba(10,0,0,0.75)'
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
+          boxShadow: scrolled ? '0 1px 0 rgba(193,18,31,0.2)' : 'none',
+        }}
+      >
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          padding: '0 1.5rem',
+          height: '68px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+
+          {/* Logo */}
           <motion.button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            onClick={() => scrollToSection('home')}
+            style={{ background: 'none', border: 'none', padding: '4px', cursor: 'none', display: 'flex', alignItems: 'center', gap: '10px' }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Go to home"
           >
-            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <D4MMLogo />
+          </motion.button>
+
+          {/* Desktop nav */}
+          <ul style={{
+            display: 'flex',
+            gap: '0.25rem',
+            listStyle: 'none',
+            alignItems: 'center',
+          }} className="hidden-mobile">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <li key={item.id} style={{ position: 'relative' }}>
+                  <motion.button
+                    onClick={() => scrollToSection(item.id)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '0.5rem 0.85rem',
+                      borderRadius: '8px',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.875rem',
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'var(--ember-orange)' : 'var(--ember-ash-dim)',
+                      transition: 'color 0.2s',
+                      position: 'relative',
+                    }}
+                    whileHover={{ color: '#F77F00' }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <item.icon size={15} />
+                    {item.name}
+                    {/* Active indicator */}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'rgba(193,18,31,0.12)',
+                          border: '1px solid rgba(193,18,31,0.35)',
+                          borderRadius: '8px',
+                          zIndex: -1,
+                        }}
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Mobile hamburger */}
+          <motion.button
+            onClick={() => setIsOpen(true)}
+            style={{
+              background: 'none',
+              border: '1px solid var(--border-ember)',
+              borderRadius: '8px',
+              padding: '0.45rem',
+              cursor: 'none',
+              color: 'var(--ember-ash)',
+              display: 'none',
+            }}
+            className="show-mobile"
+            whileTap={{ scale: 0.9 }}
+            aria-label="Open menu"
+          >
+            <Menu size={20} />
           </motion.button>
         </div>
-        <div className="md:hidden flex items-center">
-          <motion.button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300 mr-4"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </motion.button>
-          <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800 dark:text-white focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}></path>
-            </svg>
-          </button>
-        </div>
-      </div>
+      </nav>
+
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-800 shadow-lg pb-4"
-          >
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-6 py-3 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center
-                  ${activeSection === item.id ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 font-semibold' : ''}`}
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                {item.name}
-              </button>
-            ))}
-          </motion.div>
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              style={{
+                position: 'fixed', inset: 0, zIndex: 9100,
+                background: 'rgba(10,0,0,0.7)',
+                backdropFilter: 'blur(4px)',
+              }}
+            />
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              style={{
+                position: 'fixed',
+                top: 0, right: 0, bottom: 0,
+                width: 'min(320px, 85vw)',
+                background: 'var(--ember-surface)',
+                borderLeft: '1px solid var(--border-ember)',
+                zIndex: 9200,
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '2rem 1.5rem',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                <D4MMLogo />
+                <motion.button
+                  onClick={() => setIsOpen(false)}
+                  style={{ background: 'none', border: 'none', cursor: 'none', color: 'var(--ember-muted)', padding: '4px' }}
+                  whileTap={{ scale: 0.85 }}
+                >
+                  <X size={22} />
+                </motion.button>
+              </div>
+              <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {navItems.map((item, i) => (
+                  <motion.button
+                    key={item.id}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.06 }}
+                    onClick={() => scrollToSection(item.id)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '0.85rem 1rem',
+                      borderRadius: '10px',
+                      background: activeSection === item.id ? 'rgba(193,18,31,0.12)' : 'transparent',
+                      border: `1px solid ${activeSection === item.id ? 'rgba(193,18,31,0.35)' : 'transparent'}`,
+                      color: activeSection === item.id ? 'var(--ember-orange)' : 'var(--ember-ash-dim)',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '1rem',
+                      fontWeight: activeSection === item.id ? 600 : 400,
+                      cursor: 'none',
+                      textAlign: 'left',
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <item.icon size={18} />
+                    {item.name}
+                  </motion.button>
+                ))}
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </nav>
+
+      {/* Responsive helpers */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hidden-mobile { display: none !important; }
+          .show-mobile   { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .hidden-mobile { display: flex !important; }
+          .show-mobile   { display: none !important; }
+        }
+      `}</style>
+    </>
   );
 };
 

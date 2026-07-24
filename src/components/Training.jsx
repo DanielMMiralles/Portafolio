@@ -1,102 +1,247 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { GraduationCap, Laptop, Database, Palette } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { GraduationCap, Award, BookOpen, Globe } from 'lucide-react';
+import { SectionHeader } from './ScrollReveal';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const trainings = [
   {
-    title: 'React Avanzado',
-    institution: 'FreeCodeCamp',
-    date: '2024',
-    description: 'Profundización en hooks, context, optimización de rendimiento y patrones avanzados de React.',
-    icon: <Laptop className="w-8 h-8 text-black-500" />,
-    color: 'from-customreact to-gray-900 dark:from-white dark:to-white'
+    title: 'Ingeniería en Sistemas',
+    institution: 'Universidad Santa María — Núcleo Oriente',
+    date: '2020 — ACTUALIDAD (Finalizando)',
+    description: 'Formación integral en ingeniería de sistemas, programación avanzada, diseño de bases de datos, arquitectura de software y gestión de proyectos tecnológicos.',
+    icon: GraduationCap,
+    color: 'var(--ember-orange)',
+    logo: 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Logo_USM.png',
   },
   {
-    title: 'Desarrollo de aplicaciones web Full Stack con JavaScript',
+    title: 'Certificado de Desarrollo Web Backend',
     institution: 'Adakademy',
     date: '2023',
-    description: 'Manejo de APIs para extracción y mapeo de informacion utilizando vue.js',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/adakademy_logo_azul.png' className="w-12 h-12 text-blue-500" />,
-    color: 'from-blue-400 to-blue-600'
+    description: 'Desarrollo de servicios backend, construcción y consumo de REST APIs, integración de bases de datos relacionales y autenticación con Node.js.',
+    icon: Award,
+    color: 'var(--ember-amber)',
+    logo: 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/adakademy_logo_azul.png',
   },
   {
-    title: 'CSS3 y HTML5 avanzado',
-    institution: 'Alegra',
+    title: 'Certificado de Desarrollo Web Frontend',
+    institution: 'Adakademy',
     date: '2023',
-    description: 'Diseño responsivo, animaciones avanzadas y mejores prácticas de accesibilidad.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Logotipo-Alegra.png' className="w-8 h-8 text-green-500" />,
-    color: 'from-green-400 to-green-600'
+    description: 'Especialización en desarrollo frontend con React, manejo de estado, diseño responsivo avanzado con CSS/Tailwind y consumo de APIs.',
+    icon: BookOpen,
+    color: 'var(--ember-crimson)',
+    logo: 'https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/adakademy_logo_azul.png',
   },
   {
-    title: 'SQL y Modelado de Datos',
-    institution: 'datacamp',
-    date: '2024',
-    description: 'Consultas avanzadas, modelado relacional y optimización de bases de datos.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/datacamp-logo-freelogovectors.net_.png' className="w-8 h-8 text-color-#7FFFD4" />,
-    color: 'from-green-400 to-blue-700'
-  },
-  {
-    title: 'Ingeniero en sistemas',
-    institution: 'Universidad Santa Maria',
-    date: '2020-(En curso)',
-    description: 'Formación integral en ingeniería de sistemas, programación y gestión de proyectos tecnológicos.',
-    icon: <img src='https://raw.githubusercontent.com/DanielMMiralles/Portafolio/main/src/assets/Logo_USM.png' className="w-8 h-8 text-purple-500" />,
-    color: 'from-purple-400 to-purple-600'
+    title: 'Certificado de Inglés Avanzado',
+    institution: 'Instituto IFISA',
+    date: '2017',
+    description: 'Dominio avanzado del idioma inglés (lectura, escritura y comunicación fluida en entornos profesionales y técnicos).',
+    icon: Globe,
+    color: 'var(--ember-amber)',
+    logo: null,
   },
 ];
 
-const cardVariants = {
-  offscreen: { opacity: 0, y: 60, rotate: -6 },
-  onscreen: (i) => ({
-    opacity: 1,
-    y: 0,
-    rotate: 0,
-    transition: { type: 'spring', bounce: 0.3, duration: 0.8, delay: i * 0.1 }
-  })
+/* ── Timeline Node ───────────────────────────── */
+const TimelineNode = ({ color }) => (
+  <div style={{
+    width: '16px', height: '16px',
+    borderRadius: '50%',
+    background: color,
+    border: '3px solid var(--ember-bg)',
+    boxShadow: `0 0 0 3px ${color}40, 0 0 16px ${color}60`,
+    flexShrink: 0,
+    zIndex: 2,
+    animation: 'node-pulse 2.5s infinite',
+  }} />
+);
+
+/* ── Training Card ───────────────────────────── */
+const TrainingCard = ({ item, index, isLeft }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const Icon = item.icon;
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        display: 'flex',
+        justifyContent: isLeft ? 'flex-end' : 'flex-start',
+        paddingLeft: isLeft ? 0 : 'calc(50% + 2rem)',
+        paddingRight: isLeft ? 'calc(50% + 2rem)' : 0,
+        marginBottom: '2.5rem',
+      }}
+      className="timeline-card-row"
+    >
+      <motion.div
+        initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        style={{
+          background: 'var(--ember-card)',
+          border: `1px solid ${item.color}30`,
+          borderRadius: '16px',
+          padding: '1.5rem',
+          maxWidth: '420px',
+          width: '100%',
+          position: 'relative',
+          boxShadow: `0 4px 24px ${item.color}15`,
+          transition: 'border-color 0.3s, box-shadow 0.3s',
+        }}
+        whileHover={{
+          borderColor: item.color + '70',
+          boxShadow: `0 8px 32px ${item.color}30`,
+          y: -4,
+        }}
+      >
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.85rem' }}>
+          {/* Logo or Icon */}
+          <div style={{
+            width: '46px', height: '46px',
+            borderRadius: '12px',
+            background: 'rgba(10,0,0,0.6)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            overflow: 'hidden',
+            flexShrink: 0,
+            border: `1px solid ${item.color}35`,
+          }}>
+            {item.logo ? (
+              <img src={item.logo} alt={item.institution} style={{ width: '34px', height: '34px', objectFit: 'contain' }} />
+            ) : (
+              <Icon size={22} color={item.color} />
+            )}
+          </div>
+          <div>
+            <h3 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1rem',
+              fontWeight: 700,
+              color: 'var(--ember-ash)',
+              marginBottom: '3px',
+            }}>{item.title}</h3>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.72rem',
+              color: item.color,
+            }}>{item.institution} · {item.date}</span>
+          </div>
+        </div>
+        <p style={{
+          color: 'var(--ember-muted)',
+          fontSize: '0.88rem',
+          lineHeight: 1.65,
+        }}>{item.description}</p>
+      </motion.div>
+    </div>
+  );
 };
 
-const Training = () => (
-  <section id="training" className="py-20 px-4 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-white">
-    <div className="container mx-auto max-w-5xl">
-      <motion.h2
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent"
-      >
-        Capacitaciones
-      </motion.h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {trainings.map((item, i) => (
-          <motion.div
-            key={i}
-            custom={i}
-            initial="offscreen"
-            whileInView="onscreen"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={cardVariants}
-            whileHover={{ scale: 1.07, rotate: 2 }}
-            className={`relative rounded-3xl shadow-2xl p-6 flex flex-col items-center justify-between bg-white/70 dark:bg-gray-800/80 backdrop-blur-lg border border-blue-100 dark:border-gray-700 transition-transform duration-300 group overflow-hidden hover:shadow-blue-300 dark:hover:shadow-purple-700 hover:z-10`}
-          >
-            <div className={`absolute -top-10 right-0 w-32 h-32 rounded-full blur-2xl opacity-40 bg-gradient-to-br ${item.color}`}></div>
-            <div className="z-10 flex flex-col items-center">
-              <div className="mb-4 animate-bounce-slow flex items-center justify-center">
-                {typeof item.icon === 'string' ? (
-                  <img src={item.icon} alt={item.title + ' logo'} className="w-16 h-16 object-contain mx-auto" />
-                ) : (
-                  React.cloneElement(item.icon, { className: 'w-16 h-16 object-contain mx-auto' })
-                )}
-              </div>
-              <h3 className="text-lg font-bold text-center mb-1 text-blue-700 dark:text-blue-300 drop-shadow-lg">{item.title}</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 text-center">{item.institution} &bull; {item.date}</p>
-              <p className="text-gray-700 dark:text-gray-200 text-center text-sm">{item.description}</p>
+/* ── Training ────────────────────────────────── */
+const Training = () => {
+  const lineRef = useRef(null);
+
+  useEffect(() => {
+    const line = lineRef.current;
+    if (!line) return;
+    const trigger = ScrollTrigger.create({
+      trigger: line.parentElement,
+      start: 'top 80%',
+      end: 'bottom 30%',
+      scrub: 0.5,
+      onUpdate: (self) => {
+        line.style.height = `${self.progress * 100}%`;
+      },
+    });
+    return () => trigger.kill();
+  }, []);
+
+  return (
+    <section
+      id="training"
+      style={{
+        padding: '7rem 1.5rem',
+        background: '#0A0000',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <SectionHeader
+          eyebrow="✦ Educación y Certificaciones ✦"
+          title="Formación"
+          subtitle="Grado en Ingeniería de Sistemas y certificaciones especializadas en desarrollo web e inglés."
+        />
+
+        {/* Timeline wrapper */}
+        <div style={{ position: 'relative', marginTop: '3.5rem' }}>
+          {/* Vertical line track */}
+          <div style={{
+            position: 'absolute',
+            left: '50%',
+            top: 0, bottom: 0,
+            width: '2px',
+            background: 'var(--ember-card-2)',
+            transform: 'translateX(-50%)',
+          }} className="timeline-line-track">
+            {/* Animated fill */}
+            <div
+              ref={lineRef}
+              style={{
+                position: 'absolute',
+                top: 0, left: 0,
+                width: '100%',
+                height: '0%',
+                background: 'linear-gradient(to bottom, var(--ember-crimson), var(--ember-orange), var(--ember-amber))',
+                borderRadius: '1px',
+                boxShadow: '0 0 8px var(--glow-orange)',
+                transition: 'height 0.1s',
+              }}
+            />
+          </div>
+
+          {/* Center nodes */}
+          {trainings.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                top: `calc(${(i / (trainings.length - 1)) * 85}% + 30px)`,
+                zIndex: 3,
+              }}
+              className="timeline-node-center"
+            >
+              <TimelineNode color={item.color} />
             </div>
-          </motion.div>
-        ))}
+          ))}
+
+          {/* Cards */}
+          {trainings.map((item, i) => (
+            <TrainingCard key={i} item={item} index={i} isLeft={i % 2 === 0} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+
+      <style>{`
+        @media (max-width: 768px) {
+          .timeline-line-track,
+          .timeline-node-center { display: none !important; }
+          .timeline-card-row {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            justify-content: center !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
+};
 
 export default Training;
