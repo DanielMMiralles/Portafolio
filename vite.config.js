@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: 'https://DanielMMiralles.github.io/Portafolio/',
+  base: '/Portafolio/',
 })
