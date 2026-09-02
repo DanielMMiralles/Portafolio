@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Code2, Terminal, Coffee, Headphones, Keyboard, Sparkles, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Code2, Terminal, Coffee, Headphones, Keyboard, Sparkles, X, ChevronRight } from 'lucide-react';
 import workspaceHero from '../assets/workspace_hero.jpg';
 
 const HOTSPOTS = [
@@ -85,10 +86,12 @@ const InteractiveWorkspace = () => {
             color: 'var(--amber)',
           }}
         >
+          <Sparkles size={14} />
+          <span>Explora el setup de trabajo interactivo:</span>
         </div>
 
         <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-          {activeHotspot ? `Explorando: ${activeHotspot.title}` : 'Haz clic o pasa el cursor sobre los puntos'}
+          {activeHotspot ? `Elemento: ${activeHotspot.title}` : 'Toca o pasa el cursor sobre los puntos'}
         </div>
       </div>
 
@@ -182,10 +185,10 @@ const InteractiveWorkspace = () => {
                 <Icon size={18} />
               </button>
 
-              {/* Detail Tooltip / Card */}
+              {/* Desktop Detail Tooltip (Hidden on mobile via CSS) */}
               {isActive && (
                 <div
-                  className="hotspot-tooltip"
+                  className="hotspot-desktop-tooltip"
                   style={{
                     position: 'absolute',
                     top: spot.y > 60 ? 'auto' : '125%',
@@ -193,8 +196,8 @@ const InteractiveWorkspace = () => {
                     left: spot.x > 70 ? 'auto' : spot.x < 30 ? '0%' : '50%',
                     right: spot.x > 70 ? '0%' : 'auto',
                     transform: spot.x >= 30 && spot.x <= 70 ? 'translateX(-50%)' : 'none',
-                    width: 'min(290px, 80vw)',
-                    background: 'rgba(18, 15, 13, 0.95)',
+                    width: 'min(300px, 80vw)',
+                    background: 'rgba(18, 15, 13, 0.96)',
                     backdropFilter: 'blur(16px)',
                     border: '1px solid var(--amber)',
                     borderRadius: '14px',
@@ -204,7 +207,6 @@ const InteractiveWorkspace = () => {
                     animation: 'tooltip-appear 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
-                  {/* Tooltip Header */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
                     <span
                       style={{
@@ -227,7 +229,7 @@ const InteractiveWorkspace = () => {
                         e.stopPropagation();
                         setActiveHotspot(null);
                       }}
-                      style={{ color: 'var(--text-muted)', display: 'flex', padding: '2px' }}
+                      style={{ color: 'var(--text-muted)', display: 'flex', padding: '2px', cursor: 'pointer' }}
                       title="Cerrar"
                     >
                       <X size={14} />
@@ -242,7 +244,6 @@ const InteractiveWorkspace = () => {
                     {spot.description}
                   </p>
 
-                  {/* Tags */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem' }}>
                     {spot.tags.map((tag) => (
                       <span
@@ -268,6 +269,94 @@ const InteractiveWorkspace = () => {
         })}
       </div>
 
+      {/* Mobile Responsive Details Card (Shown below image on mobile when a hotspot is active) */}
+      <AnimatePresence>
+        {activeHotspot && (
+          <motion.div
+            className="hotspot-mobile-card"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              marginTop: '1rem',
+              background: 'rgba(28, 25, 23, 0.95)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid var(--amber)',
+              borderRadius: '14px',
+              padding: '1.25rem',
+              boxShadow: '0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.1)',
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    color: 'var(--amber)',
+                    background: 'var(--amber-soft)',
+                    padding: '0.2rem 0.55rem',
+                    borderRadius: '4px',
+                    border: '1px solid var(--border-subtle)',
+                    textTransform: 'uppercase',
+                    fontWeight: 600,
+                  }}
+                >
+                  {activeHotspot.badge}
+                </span>
+              </div>
+
+              <button
+                onClick={() => setActiveHotspot(null)}
+                style={{
+                  color: 'var(--text-muted)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  fontSize: '0.78rem',
+                  fontFamily: 'var(--font-mono)',
+                  padding: '4px 8px',
+                  borderRadius: '6px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  cursor: 'pointer',
+                }}
+              >
+                <span>Cerrar</span>
+                <X size={13} />
+              </button>
+            </div>
+
+            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#fafaf9', marginBottom: '0.45rem' }}>
+              {activeHotspot.title}
+            </h4>
+
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.55, marginBottom: '0.85rem' }}>
+              {activeHotspot.description}
+            </p>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+              {activeHotspot.tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    color: '#f59e0b',
+                    background: 'rgba(245, 158, 11, 0.08)',
+                    border: '1px solid rgba(245, 158, 11, 0.2)',
+                    padding: '0.2rem 0.55rem',
+                    borderRadius: '6px',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <style>{`
         @keyframes pulse-radar {
           0% {
@@ -292,6 +381,19 @@ const InteractiveWorkspace = () => {
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
+          }
+        }
+
+        /* Responsive handling: On screens <= 768px, hide absolute tooltip and show mobile card below image */
+        @media (max-width: 768px) {
+          .hotspot-desktop-tooltip {
+            display: none !important;
+          }
+        }
+
+        @media (min-width: 769px) {
+          .hotspot-mobile-card {
+            display: none !important;
           }
         }
       `}</style>
