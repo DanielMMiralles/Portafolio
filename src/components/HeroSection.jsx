@@ -89,7 +89,7 @@ const HeroSection = () => {
               maxWidth: '650px',
             }}
           >
-            Ingeniero de Sistemas (en espera de título) con 3 años de experiencia en desarrollo de soluciones tecnológicas aplicadas. Entusiasta de la innovación potenciada con IA y el aprendizaje constante.
+            Ingeniero de Sistemas con 3+ años de experiencia diseñando soluciones tecnológicas robustas, arquitecturas backend escalables y agentes de IA aplicados al negocio.
           </motion.p>
 
           {/* CTAs + Social Icons */}

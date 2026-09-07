@@ -5,7 +5,7 @@ import { Mail, Send, CheckCircle2, AlertCircle, Github, Linkedin, Instagram } fr
 import WhatsAppIcon from './WhatsAppIcon';
 
 const EMAILJS_SERVICE_ID = 'service_o6i3dqk';
-const EMAILJS_TEMPLATE_ID = 'template_ag1fdo9';
+const EMAILJS_TEMPLATE_ID = 'template_x0dldwl';
 const EMAILJS_PUBLIC_KEY = 'Dzy9uXyL9kHcErsDG';
 
 const SOCIALS = [

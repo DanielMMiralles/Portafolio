@@ -46,6 +46,8 @@ const AboutMe = () => {
               <img
                 src={danielPhoto}
                 alt="Daniel M. Miralles"
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
               />
             </motion.div>
@@ -60,7 +62,7 @@ const AboutMe = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '2rem' }}>
               <p>
-                Ingeniero de Sistemas (en espera de título) por la Universidad Santa María (USM) con 3 años de experiencia construyendo soluciones tecnológicas.
+                Ingeniero de Sistemas por la Universidad Santa María (USM, trámite de grado) con más de 3 años de experiencia diseñando y construyendo soluciones tecnológicas integrales.
               </p>
               <p>
                 Especializado en arquitectura de software y desarrollo de soluciones adaptadas a las necesidades del cliente.
