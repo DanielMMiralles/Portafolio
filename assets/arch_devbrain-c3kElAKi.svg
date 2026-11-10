@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141210" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <linearGradient id="amberBox" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#231f1c" />
+      <stop offset="100%" stop-color="#181512" />
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.03" />
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a8a29e" />
+    </marker>
+  </defs>
+
+  
+  <style>
+    .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; fill: #f59e0b; letter-spacing: 0.08em; text-transform: uppercase; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 10px; fill: #a8a29e; }
+    .node-title { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 700; fill: #fafaf9; }
+    .node-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; fill: #f59e0b; }
+    .node-desc { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: #a8a29e; }
+    .flow-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #d6d3d1; background: #0c0a09; }
+    .group-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; fill: #948f8a; text-transform: uppercase; letter-spacing: 0.06em; }
+  </style>
+
+  <rect width="760" height="400" rx="12" fill="url(#bgGrad)" stroke="#292524" stroke-width="1.5"/>
+  <rect width="760" height="400" rx="12" fill="url(#grid)" />
+
+  <!-- Header -->
+  <text x="24" y="28" class="title">// ARQUITECTURA DE SISTEMA: DEVBRAIN MCP SERVER v3.7</text>
+  <text x="615" y="28" class="node-tech">STDIO JSON-RPC 2.0</text>
+  <line x1="24" y1="38" x2="736" y2="38" stroke="#292524" stroke-width="1" />
+
+  <!-- Left Column: AI Host Clients -->
+  <rect x="24" y="55" width="155" height="320" rx="8" fill="#161412" stroke="#292524" stroke-dasharray="4 3" />
+  <text x="36" y="74" class="group-label">CLIENTES MCP HOST</text>
+
+  <rect x="36" y="90" width="131" height="68" rx="6" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="46" y="112" class="node-title">Agentes IDE / CLI</text>
+  <text x="46" y="128" class="node-tech">Antigravity / Cursor</text>
+  <text x="46" y="144" class="node-desc">Sesiones de codigo</text>
+
+  <rect x="36" y="176" width="131" height="68" rx="6" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="46" y="198" class="node-title">Claude Desktop</text>
+  <text x="46" y="214" class="node-tech">MCP Client Nativo</text>
+  <text x="46" y="230" class="node-desc">Consultas de diseno</text>
+
+  <rect x="36" y="262" width="131" height="68" rx="6" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="46" y="284" class="node-title">DevBrain CLI</text>
+  <text x="46" y="300" class="node-tech">Terminal HUD / Doctor</text>
+  <text x="46" y="316" class="node-desc">Snapshots y auditoria</text>
+
+  <!-- Center: DevBrain PLC Core -->
+  <rect x="235" y="75" width="185" height="280" rx="10" fill="url(#amberBox)" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="250" y="100" class="title">DEVBRAIN PLC CORE</text>
+  <text x="250" y="116" class="node-desc">Orquestador Cognitivo Python</text>
+  <line x1="250" y1="126" x2="405" y2="126" stroke="#f59e0b" stroke-opacity="0.3" />
+
+  <rect x="250" y="140" width="155" height="52" rx="6" fill="#181512" stroke="#f59e0b" stroke-opacity="0.4" />
+  <text x="260" y="160" class="node-title">29 Herramientas MCP</text>
+  <text x="260" y="176" class="node-tech">Rutas: LOCAL / ORCHESTRATE</text>
+
+  <rect x="250" y="206" width="155" height="52" rx="6" fill="#181512" stroke="#f59e0b" stroke-opacity="0.4" />
+  <text x="260" y="226" class="node-title">Gate Semantico Cynefin</text>
+  <text x="260" y="242" class="node-tech">5 Dimensiones de Riesgo</text>
+
+  <rect x="250" y="272" width="155" height="52" rx="6" fill="#181512" stroke="#f59e0b" stroke-opacity="0.4" />
+  <text x="260" y="292" class="node-title">Model Dispatch Router</text>
+  <text x="260" y="308" class="node-tech">Fast / Frontier / Coder</text>
+
+  <!-- Arrows Client <-> Core -->
+  <line x1="179" y1="124" x2="233" y2="165" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="179" y1="210" x2="233" y2="210" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="179" y1="296" x2="233" y2="255" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="183" y="200" class="flow-label">JSON-RPC</text>
+
+  <!-- Right Column: 4 Cognitive Subsystems -->
+  <rect x="475" y="55" width="260" height="72" rx="7" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="490" y="76" class="node-title">1. Memoria Hebbiana &amp; FTS5</text>
+  <text x="490" y="92" class="node-tech">Obsidian Vault (+6,350 notas) · &lt;20ms</text>
+  <text x="490" y="108" class="node-desc">Reranker sinaptico por co-activacion</text>
+
+  <rect x="475" y="138" width="260" height="72" rx="7" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="490" y="159" class="node-title">2. Motor D-ODD &amp; Decision Ledger</text>
+  <text x="490" y="175" class="node-tech">SQLite WAL · Tesis vs. Antitesis</text>
+  <text x="490" y="191" class="node-desc">Aislamiento de contexto anti-sesgo</text>
+
+  <rect x="475" y="221" width="260" height="72" rx="7" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="490" y="242" class="node-title">3. AST Slicer &amp; Token Optimizer</text>
+  <text x="490" y="258" class="node-tech">Compresion -85% Tokens · Bundles MD</text>
+  <text x="490" y="274" class="node-desc">Extraccion de firmas y contratos reales</text>
+
+  <rect x="475" y="304" width="260" height="72" rx="7" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="490" y="325" class="node-title">4. Grafo Sintactico de Codigo</text>
+  <text x="490" y="341" class="node-tech">Graphify AST · SQLite Code Graph</text>
+  <text x="490" y="357" class="node-desc">Mapa de llamadas y radio de impacto</text>
+
+  <!-- Arrows Core -> Subsystems -->
+  <line x1="420" y1="155" x2="473" y2="92" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="420" y1="195" x2="473" y2="174" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="420" y1="245" x2="473" y2="257" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="420" y1="285" x2="473" y2="340" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+</svg>

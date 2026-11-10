@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141210" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <linearGradient id="amberBox" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#231f1c" />
+      <stop offset="100%" stop-color="#181512" />
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.03" />
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a8a29e" />
+    </marker>
+  </defs>
+
+  
+  <style>
+    .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; fill: #f59e0b; letter-spacing: 0.08em; text-transform: uppercase; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 10px; fill: #a8a29e; }
+    .node-title { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 700; fill: #fafaf9; }
+    .node-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; fill: #f59e0b; }
+    .node-desc { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: #a8a29e; }
+    .flow-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #d6d3d1; background: #0c0a09; }
+    .group-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; fill: #948f8a; text-transform: uppercase; letter-spacing: 0.06em; }
+  </style>
+
+  <rect width="760" height="400" rx="12" fill="url(#bgGrad)" stroke="#292524" stroke-width="1.5"/>
+  <rect width="760" height="400" rx="12" fill="url(#grid)" />
+
+  <text x="24" y="28" class="title">// ARQUITECTURA MULTI-TENANT: LIDERA SAAS ENTERPRISE &amp; RLS ENGINE</text>
+  <text x="560" y="28" class="node-tech">REACT 19 · POSTGRES RLS · PLAYWRIGHT</text>
+  <line x1="24" y1="38" x2="736" y2="38" stroke="#292524" stroke-width="1" />
+
+  <!-- Left: React 19 Frontend -->
+  <rect x="24" y="65" width="215" height="200" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="38" y="90" class="node-title">1. Frontend Empresarial</text>
+  <text x="38" y="108" class="node-tech">React 19 + TypeScript + Tailwind</text>
+  <text x="38" y="132" class="node-desc">• TanStack Query (Cache Async)</text>
+  <text x="38" y="150" class="node-desc">• TanStack Table (Alta Densidad)</text>
+  <text x="38" y="168" class="node-desc">• Zustand (Estado Predecible)</text>
+  <text x="38" y="186" class="node-desc">• Previsualizacion Segura Docs</text>
+  <text x="38" y="212" class="node-tech">Optimistic UI Updates</text>
+
+  <!-- Bottom Left: Playwright QA -->
+  <rect x="24" y="282" width="215" height="90" rx="8" fill="#161412" stroke="#f59e0b" stroke-opacity="0.5" />
+  <text x="38" y="305" class="node-title">4. Verificacion E2E Continua</text>
+  <text x="38" y="322" class="node-tech">Playwright Automated Suite</text>
+  <text x="38" y="340" class="node-desc">Valida aislamiento entre empresas,</text>
+  <text x="38" y="354" class="node-desc">login, permisos y flujos criticos.</text>
+
+  <!-- Center: Auth & Tenant Context -->
+  <rect x="280" y="65" width="190" height="307" rx="10" fill="url(#amberBox)" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="296" y="90" class="title">2. IDENTIDAD &amp; RBAC</text>
+  <text x="296" y="108" class="node-tech">Supabase Auth / Django API</text>
+
+  <rect x="296" y="128" width="158" height="68" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="308" y="148" class="node-title">JWT Custom Claims</text>
+  <text x="308" y="164" class="node-tech">tenant_id + role_scope</text>
+  <text x="308" y="180" class="node-desc">Inyectado en cada sesion</text>
+
+  <rect x="296" y="212" width="158" height="68" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="308" y="232" class="node-title">Control Granular RBAC</text>
+  <text x="308" y="248" class="node-tech">Admin / Operador / Auditor</text>
+  <text x="308" y="264" class="node-desc">Permisos por departamento</text>
+
+  <rect x="296" y="294" width="158" height="60" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="308" y="314" class="node-title">Signed URLs Generator</text>
+  <text x="308" y="330" class="node-tech">Expiracion 60 Segundos</text>
+
+  <line x1="239" y1="165" x2="278" y2="165" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="239" y1="325" x2="278" y2="325" stroke="#a8a29e" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrowMuted)" />
+
+  <!-- Right: Database RLS & Forensic Storage -->
+  <rect x="510" y="65" width="226" height="190" rx="8" fill="url(#cardGrad)" stroke="#f59e0b" />
+  <text x="525" y="90" class="node-title">3. Motor PostgreSQL RLS</text>
+  <text x="525" y="108" class="node-tech">Row-Level Security en Nucleo SQL</text>
+  <text x="525" y="130" class="node-desc">Politicas declarativas por fila:</text>
+  <text x="525" y="146" class="node-tech">USING (org_id = auth.tenant_id())</text>
+  <text x="525" y="170" class="node-desc">Aislamiento matematico del 100%</text>
+  <text x="525" y="186" class="node-desc">entre clientes corporativos aun</text>
+  <text x="525" y="202" class="node-desc">ante errores en capa de vista.</text>
+
+  <rect x="510" y="272" width="226" height="100" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="525" y="296" class="node-title">Auditoria Forense Inmutable</text>
+  <text x="525" y="314" class="node-tech">Triggers SQL + S3 Object Storage</text>
+  <text x="525" y="334" class="node-desc">Bitacora inalterable de lecturas,</text>
+  <text x="525" y="350" class="node-desc">descargas y cambios de version.</text>
+
+  <line x1="470" y1="165" x2="508" y2="165" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="470" y1="320" x2="508" y2="320" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+</svg>

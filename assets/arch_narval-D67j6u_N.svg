@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141210" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <linearGradient id="amberBox" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#231f1c" />
+      <stop offset="100%" stop-color="#181512" />
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.03" />
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a8a29e" />
+    </marker>
+  </defs>
+
+  
+  <style>
+    .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; fill: #f59e0b; letter-spacing: 0.08em; text-transform: uppercase; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 10px; fill: #a8a29e; }
+    .node-title { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 700; fill: #fafaf9; }
+    .node-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; fill: #f59e0b; }
+    .node-desc { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: #a8a29e; }
+    .flow-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #d6d3d1; background: #0c0a09; }
+    .group-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; fill: #948f8a; text-transform: uppercase; letter-spacing: 0.06em; }
+  </style>
+
+  <rect width="760" height="400" rx="12" fill="url(#bgGrad)" stroke="#292524" stroke-width="1.5"/>
+  <rect width="760" height="400" rx="12" fill="url(#grid)" />
+
+  <text x="24" y="28" class="title">// ARQUITECTURA ERP MARITIMO: NARVAL-SGN (GESTION NAVIERA Y PORTUARIA)</text>
+  <text x="580" y="28" class="node-tech">DJANGO 6.0 · DRF · POSTGRESQL</text>
+  <line x1="24" y1="38" x2="736" y2="38" stroke="#292524" stroke-width="1" />
+
+  <!-- Top Layer: Web Clients -->
+  <rect x="30" y="56" width="700" height="72" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="48" y="78" class="node-title">1. Panel Operativo &amp; Administrativo Web (React SPA + TailwindCSS)</text>
+  <text x="48" y="96" class="node-tech">Tableros de Flota · Visor de Manifiestos · Control de Liquidaciones · Gestion de Permisos</text>
+  <text x="48" y="113" class="node-desc">Interfaz reactiva de baja latencia conectada mediante contratos OpenAPI / REST y autenticacion por tokens.</text>
+
+  <line x1="380" y1="128" x2="380" y2="152" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="392" y="144" class="flow-label">HTTPS / JSON Schema Validation</text>
+
+  <!-- Middle Layer: Django 6.0 Core -->
+  <rect x="30" y="155" width="700" height="122" rx="8" fill="url(#amberBox)" stroke="#f59e0b" />
+  <text x="48" y="177" class="title">2. NUCLEO EMPRESARIAL BACKEND (PYTHON · DJANGO 6.0 · DJANGO REST FRAMEWORK)</text>
+
+  <rect x="48" y="190" width="208" height="72" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="60" y="210" class="node-title">Modulo de Flota &amp; Buques</text>
+  <text x="60" y="226" class="node-tech">Especificaciones &amp; Bitacoras</text>
+  <text x="60" y="244" class="node-desc">Control de arribo, zarpe y</text>
+  <text x="60" y="256" class="node-desc">mantenimiento de embarcaciones</text>
+
+  <rect x="276" y="190" width="208" height="72" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="288" y="210" class="node-title">Motor de Manifiestos</text>
+  <text x="288" y="226" class="node-tech">Ingesta &amp; Gestion Documental</text>
+  <text x="288" y="244" class="node-desc">Validacion de carga maritima,</text>
+  <text x="288" y="256" class="node-desc">conocimiento de embarque (BL)</text>
+
+  <rect x="504" y="190" width="208" height="72" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="516" y="210" class="node-title">Facturacion Portuaria</text>
+  <text x="516" y="226" class="node-tech">Liquidacion &amp; Reportes</text>
+  <text x="516" y="244" class="node-desc">Calculo automatizado de tasas,</text>
+  <text x="516" y="256" class="node-desc">servicios de muelle y estados</text>
+
+  <line x1="380" y1="277" x2="380" y2="302" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="392" y="294" class="flow-label">Django ORM · Transacciones Atomicas</text>
+
+  <!-- Bottom Layer: Persistence & Infra -->
+  <rect x="30" y="305" width="440" height="72" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="48" y="327" class="node-title">3. Base de Datos Relacional (PostgreSQL)</text>
+  <text x="48" y="344" class="node-tech">Integridad Referencial Estricta · Indices Compuestos</text>
+  <text x="48" y="361" class="node-desc">Modelado normalizado de buques, clientes, tarifas y auditoria contable.</text>
+
+  <rect x="490" y="305" width="240" height="72" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="508" y="327" class="node-title">4. Infraestructura Docker</text>
+  <text x="508" y="344" class="node-tech">Docker Compose · Nginx</text>
+  <text x="508" y="361" class="node-desc">Despliegue aislado y reproducible.</text>
+</svg>

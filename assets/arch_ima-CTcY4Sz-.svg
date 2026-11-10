@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="100%" height="100%">
+  
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141210" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+    <linearGradient id="amberBox" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#231f1c" />
+      <stop offset="100%" stop-color="#181512" />
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.03" />
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrowMuted" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a8a29e" />
+    </marker>
+  </defs>
+
+  
+  <style>
+    .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; fill: #f59e0b; letter-spacing: 0.08em; text-transform: uppercase; }
+    .subtitle { font-family: 'Inter', sans-serif; font-size: 10px; fill: #a8a29e; }
+    .node-title { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 700; fill: #fafaf9; }
+    .node-tech { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 500; fill: #f59e0b; }
+    .node-desc { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: #a8a29e; }
+    .flow-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; fill: #d6d3d1; background: #0c0a09; }
+    .group-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; fill: #948f8a; text-transform: uppercase; letter-spacing: 0.06em; }
+  </style>
+
+  <rect width="760" height="400" rx="12" fill="url(#bgGrad)" stroke="#292524" stroke-width="1.5"/>
+  <rect width="760" height="400" rx="12" fill="url(#grid)" />
+
+  <text x="24" y="28" class="title">// ARQUITECTURA DE AGENTE AUTONOMO: PROYECTO IMA (ADAKADEMY)</text>
+  <text x="575" y="28" class="node-tech">LANGGRAPH · FASTAPI · PGVECTOR</text>
+  <line x1="24" y1="38" x2="736" y2="38" stroke="#292524" stroke-width="1" />
+
+  <!-- Left: WhatsApp & FastAPI -->
+  <rect x="24" y="75" width="160" height="95" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="36" y="100" class="node-title">Meta WhatsApp API</text>
+  <text x="36" y="118" class="node-tech">Canal Oficial 24/7</text>
+  <text x="36" y="136" class="node-desc">Mensajes de prospectos</text>
+  <text x="36" y="150" class="node-desc">y solicitudes de precios</text>
+
+  <rect x="24" y="215" width="160" height="105" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="36" y="240" class="node-title">FastAPI Gateway</text>
+  <text x="36" y="258" class="node-tech">Async Webhook Receiver</text>
+  <text x="36" y="276" class="node-desc">• Firma HMAC-SHA256</text>
+  <text x="36" y="292" class="node-desc">• Deduplicacion Eventos</text>
+  <text x="36" y="308" class="node-desc">• Validacion Pydantic v2</text>
+
+  <line x1="104" y1="170" x2="104" y2="213" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Center: LangGraph StateGraph -->
+  <rect x="230" y="75" width="215" height="245" rx="10" fill="url(#amberBox)" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="246" y="100" class="title">ORQUESTADOR LANGGRAPH</text>
+  <text x="246" y="116" class="node-tech">StateGraph Ciclico con Memoria</text>
+
+  <rect x="246" y="132" width="183" height="52" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="258" y="152" class="node-title">Clasificador de Intencion</text>
+  <text x="258" y="168" class="node-desc">Catalogo / Cotizacion / Soporte</text>
+
+  <rect x="246" y="196" width="183" height="52" rx="6" fill="#161412" stroke="#3f3a36" />
+  <text x="258" y="216" class="node-title">Gestor de Estado &amp; Sesion</text>
+  <text x="258" y="232" class="node-desc">Checkpointing de conversacion</text>
+
+  <rect x="246" y="260" width="183" height="44" rx="6" fill="#161412" stroke="#f59e0b" stroke-opacity="0.5" />
+  <text x="258" y="280" class="node-title">Validador Tool-Calling</text>
+  <text x="258" y="295" class="node-tech">Guardrail Anti-Alucinacion</text>
+
+  <line x1="184" y1="265" x2="228" y2="225" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Right: 3 Execution Tools -->
+  <rect x="495" y="62" width="240" height="86" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="510" y="84" class="node-title">1. RAG Semantico (pgvector)</text>
+  <text x="510" y="100" class="node-tech">Supabase PostgreSQL Embeddings</text>
+  <text x="510" y="118" class="node-desc">Busqueda por similitud de cosenos</text>
+  <text x="510" y="132" class="node-desc">tolerante a errores de escritura.</text>
+
+  <rect x="495" y="164" width="240" height="86" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="510" y="186" class="node-title">2. Cotizador Determinista</text>
+  <text x="510" y="202" class="node-tech">Motor de Calculo Python</text>
+  <text x="510" y="220" class="node-desc">Calcula precios, stock e impuestos</text>
+  <text x="510" y="234" class="node-desc">en codigo puro (0% alucinacion LLM).</text>
+
+  <rect x="495" y="266" width="240" height="86" rx="8" fill="url(#cardGrad)" stroke="#3f3a36" />
+  <text x="510" y="288" class="node-title">3. Handoff a Asesor Humano</text>
+  <text x="510" y="304" class="node-tech">Derivacion Inteligente + Resumen</text>
+  <text x="510" y="322" class="node-desc">Transfiere casos complejos al equipo</text>
+  <text x="510" y="336" class="node-desc">de ventas con contexto completo.</text>
+
+  <!-- Arrows LangGraph -> Tools -->
+  <line x1="445" y1="155" x2="493" y2="105" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="445" y1="210" x2="493" y2="207" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="445" y1="275" x2="493" y2="305" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+</svg>
