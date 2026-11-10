@@ -1,36 +1,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
 
 const EXPERIENCES = [
   {
-    role: 'Software Developer',
+    role: 'Software Developer / Full Stack Engineer',
     company: 'Adakademy, C.A.',
     period: '2025 — ACTUALIDAD',
-    location: 'Lechería, Anzoátegui',
+    location: 'Lechería, Anzoátegui (Híbrido / Remoto)',
     type: 'Jornada Completa',
     bullets: [
-      'Desarrollo de agentes autónomos inteligentes para captación automatizada de clientes, registro y pagos.',
-      'Software de gestión documental centralizado para empresa local.',
-      'Refactorización y arquitectura para escalabilidad, alta disponibilidad y seguridad.',
-      'Middleware especializado para pasarela de pagos segura.',
-      'Sistema ERP integral para el sector naviero.',
+      'ERP Marítimo & Backend (Narval-SGN): Desarrollo del núcleo operativo con Python, Django REST Framework y PostgreSQL, centralizando gestión de buques, ingesta de manifiestos de carga y facturación portuaria.',
+      'Seguridad Transaccional & Pagos: Implementación de una capa de idempotencia con bloqueos distribuidos en Redis (Redlock) para procesar webhooks financieros y eliminar cobros duplicados ante reintentos de red.',
+      'Agente IA Comercial (Proyecto IMA): Diseño de flujos conversacionales con estado (LangGraph, FastAPI y pgvector) conectados a WhatsApp para atención y cotizaciones automáticas 24/7.',
+      'Dashboards Interactivos & Frontend: Construcción de interfaces ricas en datos con React y TailwindCSS con autenticación segura por tokens y componentes reutilizables.',
+      'DevOps & Estándares: Estandarización de entornos contenerizados con Docker Compose y controles de calidad automatizados en repositorios.',
     ],
-    tech: ['React', 'NestJS', 'PostgreSQL', 'Docker', 'n8n', 'TailwindCSS'],
+    tech: ['Python', 'Django REST Framework', 'PostgreSQL', 'React', 'TypeScript', 'Redis', 'LangGraph', 'Docker'],
   },
   {
-    role: 'Software Developer',
-    company: 'Freelance / Consultoría',
+    role: 'Software Engineer & Architect',
+    company: 'Consultoría de Software Independiente',
     period: '2023 — ACTUALIDAD',
-    location: 'Modalidad Remota',
+    location: 'Modalidad 100% Remota',
     type: 'Freelance / Consultoría',
     bullets: [
-      'App móvil con integración de agente IA de atención al cliente vía WhatsApp para distribuidora.',
-      'Gestión de logística y operaciones empresariales con captación automática.',
-      'Integración de pasarelas de pago y automatizaciones de flujos operacionales (backups, CI/CD).',
-      'Landing Pages de alto rendimiento y conversión.',
+      'DevBrain MCP Server (v3.7): Creación de un Sistema Operativo Cognitivo open-source bajo Model Context Protocol (29 tools, memoria Hebbiana FTS5, marco D-ODD y compresión AST con -85% consumo de tokens).',
+      'Ecosistema Logístico AliaLog + Asistente "Alia": Arquitectura integral con NestJS (Clean Architecture), app móvil Flutter offline-first para choferes y chatbot de WhatsApp para pedidos de clientes y reportes gerenciales en vivo.',
+      'Plataforma Lidera SaaS Enterprise: Desarrollo Full Stack con React 19, TypeScript, TanStack Query/Table, aislamiento multi-empresa mediante PostgreSQL Row-Level Security (RLS) y testing E2E con Playwright.',
+      'Automatización de procesos operativos, respaldos programados y despliegues continuos (CI/CD con GitHub Actions).',
     ],
-    tech: ['Flutter', 'Python', 'FastAPI', 'Django', 'LangGraph', 'Supabase', 'SQL Server', 'Figma'],
+    tech: ['NestJS', 'Flutter', 'React 19', 'TypeScript', 'FastAPI', 'Supabase / PostgreSQL RLS', 'MCP', 'Playwright'],
   },
 ];
 
@@ -45,9 +45,9 @@ const Experience = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="section-label">// experiencia laboral</div>
-          <h2 className="section-title">Experiencia Laboral</h2>
+          <h2 className="section-title">Experiencia Profesional</h2>
           <p className="section-desc" style={{ marginBottom: '3rem' }}>
-            Registro de trayectoria y desarrollo en entornos de producción.
+            Trayectoria liderando la arquitectura y entrega de sistemas en entornos de producción reales.
           </p>
         </motion.div>
 

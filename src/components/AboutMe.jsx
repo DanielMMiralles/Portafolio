@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, GraduationCap, Globe } from 'lucide-react';
-import danielPhoto from '../assets/daniel_studio_centered.jpg';
+import danielPhoto from '../assets/daniel_profile_formal.jpg';
 
 const AboutMe = () => {
   return (
@@ -48,7 +48,7 @@ const AboutMe = () => {
                 alt="Daniel M. Miralles"
                 loading="lazy"
                 decoding="async"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
               />
             </motion.div>
           </div>
@@ -60,12 +60,12 @@ const AboutMe = () => {
               Sobre Mí & Capacidades
             </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.7, marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', color: 'var(--text-secondary)', fontSize: '1.03rem', lineHeight: 1.7, marginBottom: '2rem' }}>
               <p>
-                Ingeniero de Sistemas por la Universidad Santa María (USM, trámite de grado) con más de 3 años de experiencia diseñando y construyendo soluciones tecnológicas integrales.
+                Como Ingeniero de Sistemas y Arquitecto de Software, mi enfoque es construir sistemas confiables y escalables que resuelvan problemas reales de negocio sin añadir complejidad innecesaria.
               </p>
               <p>
-                Especializado en arquitectura de software y desarrollo de soluciones adaptadas a las necesidades del cliente.
+                Cuento con más de 3 años de experiencia respetando los fundamentos de la ingeniería —estado predecible, integridad de datos y alta disponibilidad— mientras integro de forma pragmática estándares modernos como agentes de IA y Model Context Protocol (MCP).
               </p>
             </div>
 
@@ -73,7 +73,7 @@ const AboutMe = () => {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border-muted)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <MapPin size={16} color="var(--amber)" />
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Lechería, Venezuela</span>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Lechería, Venezuela (UTC-4)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <GraduationCap size={16} color="var(--amber)" />
@@ -81,7 +81,7 @@ const AboutMe = () => {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Globe size={16} color="var(--amber)" />
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Español (Nativo) · Inglés Avanzado (IFISA)</span>
+                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>Español (Nativo) · Inglés B2</span>
               </div>
             </div>
           </div>

@@ -1,199 +1,332 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Lock, Cpu, Database, Shield, FileText, CheckCircle2, Layers, X, ArrowDown, Network } from 'lucide-react';
+import {
+  Lock,
+  Cpu,
+  Database,
+  Shield,
+  FileText,
+  CheckCircle2,
+  Layers,
+  X,
+  ArrowDown,
+  Network,
+  Truck,
+  Terminal,
+  ExternalLink,
+  Maximize2,
+} from 'lucide-react';
+
+import archDevbrain from '../assets/arch/arch_devbrain.svg';
+import archAlialog from '../assets/arch/arch_alialog.svg';
+import archNarval from '../assets/arch/arch_narval.svg';
+import archIma from '../assets/arch/arch_ima.svg';
+import archPayments from '../assets/arch/arch_payments.svg';
+import archLidera from '../assets/arch/arch_lidera.svg';
 
 const PROJECTS = [
   {
     id: '01',
-    title: 'ERP Naviero & Gestión de Flota',
-    category: 'Enterprise / Logistics',
-    filterTag: 'backend',
-    icon: Database,
-    metric: '-40%',
-    metricLabel: 'Tiempo logístico',
+    title: 'DevBrain MCP Server (v3.7) — Sistema Operativo Cognitivo',
+    category: 'IA & Arquitectura Cognitiva (MCP)',
+    filterTag: 'ai',
+    icon: Terminal,
+    metric: '-85%',
+    metricLabel: 'Consumo Tokens',
+    repoUrl: 'https://github.com/DanielMMiralles/devbrain-mcp',
+    diagramImg: archDevbrain,
     challenge:
-      'Control descentralizado e ineficiente de operaciones de flota naval, logística de carga, stock de repuestos y facturación empresarial.',
+      'Los agentes de IA sufren de amnesia de contexto entre sesiones, sesgo de confirmación y alto consumo de tokens al analizar bases de código extensas.',
     solution:
-      'Diseño y desarrollo de arquitectura modular NestJS con PostgreSQL y frontend React de alta velocidad, centralizando el estado operativo de buques, control de insumos en tiempo real y facturación automatizada.',
-    impact: 'Reducción del 40% en tiempos de procesamiento contable-logístico y cero discrepancias en inventario naval.',
-    stack: ['NestJS', 'PostgreSQL', 'React', 'TailwindCSS', 'Docker', 'Redis'],
+      'Servidor unificado Model Context Protocol (MCP) en Python con 29 herramientas nativas que conecta agentes con +6,350 notas técnicas mediante búsqueda FTS5 y memoria Hebbiana (<20ms), protocolo de decisiones D-ODD (Tesis vs. Antítesis) en SQLite WAL y compresión AST.',
+    impact:
+      'Reducción del 85% en el consumo de tokens de contexto, latencia de recuperación menor a 20ms y trazabilidad inmutable de decisiones de ingeniería.',
+    stack: ['Python 3.12', 'MCP (JSON-RPC)', 'SQLite WAL / FTS5', 'AST Code Slicing', 'Obsidian Vault', 'Pytest'],
     architecture: {
-      pattern: 'Arquitectura Modular por Capas & Colas en Memoria',
-      summary: 'Centralización de operaciones marítimas con alta concurrencia en puerto y sincronización asíncrona de inventario.',
+      pattern: 'Servidor MCP Unificado, Memoria Hebbiana & Marco D-ODD (Cynefin Gate)',
+      summary:
+        'Actúa como Controlador Lógico Programable (PLC) entre clientes IA (Antigravity, Claude Desktop, Cursor) y el conocimiento estructurado del ingeniero.',
       layers: [
         {
-          name: '1. Frontend & Dashboards Operativos',
-          tech: 'React SPA + Vite + TailwindCSS',
-          role: 'Tableros de control en tiempo real para bitácoras marítimas, estado de buques y órdenes de compra.',
+          name: '1. Protocolo MCP & Despachador PLC (29 Tools)',
+          tech: 'JSON-RPC 2.0 sobre Stdio + Python 3.12',
+          role: 'Interfaz estándar sin estado que expone herramientas de memoria, auditoría, empaquetado de código y enrutamiento de modelos (LOCAL_FAST / ORCHESTRATE).',
         },
         {
-          name: '2. API Gateway & Capa Modular',
-          tech: 'NestJS Framework + Guards JWT / RBAC',
-          role: 'Enrutamiento modularizado, validación estricta de esquemas DTO y control granular de roles navieros.',
+          name: '2. Memoria Neuroplástica & Búsqueda FTS5',
+          tech: 'SQLite FTS5 + Reranker Sináptico de Hebb',
+          role: 'Indexa más de 6,350 documentos técnicos y pondera resultados por co-activación histórica en menos de 20 milisegundos.',
         },
         {
-          name: '3. Procesamiento Asíncrono & Cache',
-          tech: 'Redis + Worker Queues',
-          role: 'Manejo de picos de carga en inventario de piezas navales y conciliación automática de facturas.',
+          name: '3. Marco D-ODD & Decision Ledger Inmutable',
+          tech: 'Gate Semántico Cynefin + SQLite WAL',
+          role: 'Aísla contextos entre Tesis (conocimiento previo) y Antítesis (primeros principios) evaluando 5 dimensiones de riesgo antes de aprobar cambios.',
         },
         {
-          name: '4. Persistencia & Contenedores',
-          tech: 'PostgreSQL + Docker Engine',
-          role: 'Integridad transaccional ACID en movimientos logísticos y despliegue aislado y reproducible.',
+          name: '4. AST Slicer & Grafo Sintáctico de Código',
+          tech: 'Python AST Parser + Graphify DB',
+          role: 'Extrae firmas, contratos e interfaces reduciendo el tamaño del contexto en un 85% y mapeando el radio de impacto entre módulos.',
         },
       ],
       keyDecisions: [
-        'Aislamiento de módulos en NestJS para permitir escalar el subsistema de facturación sin afectar la bitácora de navegación.',
-        'Sincronización con Redis para evitar bloqueos pesados en bases de datos relacionales durante auditorías de stock.',
-        'Diseño de base de datos con índices compuestos optimizados para consultas temporales de tracking de buques.',
+        'Comunicación pura por stdio JSON-RPC sin dependencias web pesadas para garantizar arranque instantáneo en cualquier IDE.',
+        'Uso de SQLite en modo WAL para soportar lecturas y escrituras concurrentes de múltiples agentes sin bloqueos.',
+        'Poda sintáctica mediante árboles AST para enviar a los modelos solo las firmas relevantes en vez de archivos crudos completos.',
       ],
     },
   },
   {
     id: '02',
-    title: 'Agente IA Autónomo & CRM WhatsApp',
-    category: 'IA & Automatización',
-    filterTag: 'ai',
-    icon: Cpu,
-    metric: '85%',
-    metricLabel: 'Consultas 24/7',
+    title: 'AliaLog + Asistente "Alia" — Plataforma Logística 360°',
+    category: 'Enterprise Logistics & Mobile',
+    filterTag: 'fullstack',
+    icon: Truck,
+    metric: '360°',
+    metricLabel: 'Sync Tiempo Real',
+    diagramImg: archAlialog,
     challenge:
-      'Alta demanda de atención comercial por WhatsApp 24/7 sin personal suficiente para calificar prospectos, cotizar y coordinar logística de despachos.',
+      'Falta de visibilidad en entregas en ruta, pérdida de datos en zonas sin señal móvil, registro manual de pedidos por chat y descuadres entre almacén y camiones.',
     solution:
-      'Desarrollo de un sistema de agentes autónomos con LangGraph y FastAPI integrados con la API de WhatsApp y Supabase, permitiendo a los agentes consultar stock en vivo y agendar pedidos automáticamente.',
-    impact: 'Automatización del 85% de las consultas entrantes y atención comercial ininterrumpida las 24 horas.',
-    stack: ['Flutter', 'Python', 'LangGraph', 'FastAPI', 'Supabase', 'React'],
+      'Ecosistema integral compuesto por un backend modular en NestJS (Clean Architecture), app móvil Flutter con soporte offline-first para choferes, panel web React para almacén y el asistente conversacional "Alia" en WhatsApp para clientes y gerencia.',
+    impact:
+      'Eliminación de discrepancias de inventario entre almacén y vehículos, ingesta automática de pedidos por WhatsApp y operación continua sin internet en ruta.',
+    stack: ['NestJS', 'Flutter (Dart)', 'PostgreSQL / Supabase', 'React', 'WhatsApp Cloud API', 'Docker'],
     architecture: {
-      pattern: 'Grafo Dirigido de Agentes Autónomos (State Machine)',
-      summary: 'Orquestación reactiva multi-paso capaz de razonar, consultar herramientas en tiempo real y preservar memoria conversacional.',
+      pattern: 'Clean / Hexagonal Architecture + Sincronización Móvil Offline-First',
+      summary:
+        'Conecta a los 4 actores de la operación (Clientes, Dueño, Almacén y Choferes) bajo un único núcleo transaccional en PostgreSQL.',
       layers: [
         {
-          name: '1. Canal Perimetral & Webhooks',
-          tech: 'Meta WhatsApp Cloud API + Webhook Receiver',
-          role: 'Ingesta inmediata de mensajes con verificación de firmas de seguridad y control de duplicados.',
+          name: '1. Flujo de Clientes (Vía Asistente "Alia" en WhatsApp)',
+          tech: 'Meta WhatsApp API + NLP Parser + OrderService',
+          role: 'El cliente solicita productos por WhatsApp -> Alia extrae ítems y cantidades -> valida stock en vivo -> registra la orden atómicamente en PostgreSQL y la encola para despacho.',
         },
         {
-          name: '2. Orquestador Cognitivo (Grafo)',
-          tech: 'LangGraph + Python (FastAPI)',
-          role: 'Máquina de estados finitos que clasifica la intención (consulta, cotización, soporte o queja) y ejecuta la ruta óptima.',
+          name: '2. Flujo de Gerencia (Vía Asistente "Alia" en WhatsApp)',
+          tech: 'WhatsApp API + DispatchService + KPI Reporter',
+          role: 'El dueño consulta el avance operativo por chat -> Alia consulta el estado en vivo y entrega métricas de pedidos completados, camiones en calle y alertas de stock.',
         },
         {
-          name: '3. Tooling & RAG Semántico',
-          tech: 'pgvector + Supabase Database',
-          role: 'Búsqueda por similitud semántica en catálogo de productos, validación de stock y cálculo dinámico de precios.',
+          name: '3. Flujo de Almacén (Vía Dashboard Web)',
+          tech: 'React SPA + TypeScript + TailwindCSS',
+          role: 'Los operadores consolidan los pedidos del día, asignan lotes de carga a los vehículos disponibles y liberan las hojas de ruta.',
         },
         {
-          name: '4. Pipeline Transaccional & Fallback',
-          tech: 'PostgreSQL + Notificaciones en Tiempo Real',
-          role: 'Creación de pre-órdenes, enlace de pago y derivación automática a operadores humanos si el agente detecta frustración.',
+          name: '4. Flujo de Choferes en Calle (Vía App Móvil Flutter)',
+          tech: 'Flutter / Dart + Almacenamiento Local + SyncService',
+          role: 'El chofer descarga la ruta localmente. Con o sin cobertura móvil registra cada entrega, y al recuperar señal la app sincroniza los cambios con la base de datos central.',
         },
       ],
       keyDecisions: [
-        'Implementación con LangGraph para evitar bucles infinitos y garantizar determinismo en estados críticos de checkout.',
-        'Caché de embeddings de preguntas frecuentes que redujo en 60% la latencia de respuesta al usuario.',
-        'Mapeo estricto de Pydantic para validar entradas de herramientas y mitigar inyecciones de prompt.',
+        'Separación estricta de capas en NestJS (Dominio, Casos de Uso e Infraestructura) para mantener la lógica de despacho desacoplada.',
+        'Transacciones ACID en PostgreSQL al transferir mercancía del almacén al inventario móvil del camión.',
+        'Cola de sincronización idempotente en Flutter para evitar duplicación de confirmaciones de entrega al reconectar.',
       ],
     },
   },
   {
     id: '03',
-    title: 'Middleware de Pasarela de Pagos Segura',
-    category: 'Backend & Security',
+    title: 'Narval-SGN — ERP Naviero & Facturación Portuaria',
+    category: 'Enterprise ERP / Maritime',
     filterTag: 'backend',
-    icon: Shield,
-    metric: '99.99%',
-    metricLabel: 'Disponibilidad',
+    icon: Database,
+    metric: '-40%',
+    metricLabel: 'Tiempo Operativo',
+    diagramImg: archNarval,
     challenge:
-      'Interconectar sistemas empresariales legacy con procesadores de pago encriptados manteniendo baja latencia, seguridad estricta y tolerancia a fallos.',
+      'Control disperso de operaciones marítimas, procesamiento manual de manifiestos de carga, seguimiento de especificaciones de buques y retrasos en la liquidación de servicios portuarios.',
     solution:
-      'Construcción de una capa middleware en Node.js y NestJS containerizada en Docker, aplicando arquitectura orientada a eventos, cifrado AES-256 en tránsito y sistema de reintentos idempotentes.',
-    impact: 'Procesamiento de transacciones sub-segundo con 99.99% de disponibilidad operativa durante picos de tráfico.',
-    stack: ['NestJS', 'Node.js', 'PostgreSQL', 'Docker', 'TypeScript', 'Redis'],
+      'Desarrollo del núcleo backend empresarial con Python, Django 6.0, Django REST Framework y PostgreSQL, integrado a tableros administrativos en React y contenerizado con Docker para centralizar flota, manifiestos y facturación.',
+    impact:
+      'Reducción del 40% en tiempos de liquidación contable-portuaria y trazabilidad documental completa por embarcación y maniobra.',
+    stack: ['Python', 'Django 6.0', 'Django REST Framework', 'PostgreSQL', 'React', 'Docker'],
     architecture: {
-      pattern: 'Middleware Perimetral con Idempotencia & Circuit Breaker',
-      summary: 'Capa intermedia de alta seguridad que actúa como puente blindado entre sistemas centrales y pasarelas bancarias externas.',
+      pattern: 'Arquitectura Empresarial Modular con Django REST Framework & PostgreSQL ACID',
+      summary:
+        'Centralización de operaciones marítimas y portuarias con validación estricta de contratos OpenAPI e integridad relacional.',
       layers: [
         {
-          name: '1. Endpoint Blindado & Firma HMAC',
-          tech: 'NestJS Edge Controller + Request Signatures',
-          role: 'Validación criptográfica de integridad y origen de cada solicitud financiera entrante.',
+          name: '1. Panel Operativo & Administrativo Web',
+          tech: 'React SPA + Vite + TailwindCSS',
+          role: 'Tableros de control para bitácoras de buques, carga de manifiestos, estados de cuenta y permisos por rol operativo.',
         },
         {
-          name: '2. Capa de Idempotencia & Locks',
-          tech: 'Redis Distributed Locks (Redlock)',
-          role: 'Garantía matemática de ejecución única por Idempotency-Key, impidiendo dobles cargos ante problemas de conectividad.',
+          name: '2. Capa de API & Control de Acceso (RBAC)',
+          tech: 'Django 6.0 + Django REST Framework',
+          role: 'Serialización de alto rendimiento, validación de reglas de negocio marítimas y autenticación segura basada en tokens.',
         },
         {
-          name: '3. Resiliencia & Circuit Breaker',
-          tech: 'Políticas de Reintento Exponencial + Fallback',
-          role: 'Monitoreo de estado de pasarelas bancarias; apertura de circuito ante fallos para proteger el sistema.',
+          name: '3. Módulos de Flota, Manifiestos & Liquidación',
+          tech: 'Python Domain Services + OpenAPI Specs',
+          role: 'Procesamiento estructurado de conocimientos de embarque (BL), cálculo automatizado de tarifas portuarias y control documental.',
         },
         {
-          name: '4. Bóveda Segura & Auditoría Inmutable',
-          tech: 'Cifrado AES-256-GCM + Logs Particionados',
-          role: 'Tokenización de datos sensibles y almacenamiento de trazas de auditoría transaccional con sellado de tiempo.',
+          name: '4. Persistencia Relacional & Contenedores',
+          tech: 'PostgreSQL + Docker Compose',
+          role: 'Modelado relacional normalizado con bloqueos transaccionales e índices compuestos para reportes históricos y auditoría.',
         },
       ],
       keyDecisions: [
-        'Zero-trust en payloads de pago: validación de esquemas y sanitización estricta antes de encolar transacciones.',
-        'Cifrado en reposo para metadatos transaccionales y rotación periódica de claves de encriptación.',
-        'Validación de resiliencia mediante pruebas de carga intensivas simulando fallos intermitentes de red.',
+        'Elección de Django 6.0 y DRF por su robustez en modelado relacional complejo, migraciones seguras y seguridad empresarial nativa.',
+        'Diseño de esquemas PostgreSQL con restricciones de integridad estrictas para impedir inconsistencias en cobros de muelle.',
+        'Estandarización de entornos locales y de producción mediante contenedores Docker.',
       ],
     },
   },
   {
     id: '04',
-    title: 'Sistema de Gestión Documental Corporativo',
-    category: 'Full Stack Enterprise',
-    filterTag: 'fullstack',
-    icon: FileText,
-    metric: '100%',
-    metricLabel: 'Auditoría inmutable',
+    title: 'IMA (Adakademy) — Agente IA Comercial & Cotizador 24/7',
+    category: 'IA & Automatización Comercial',
+    filterTag: 'ai',
+    icon: Cpu,
+    metric: '+80%',
+    metricLabel: 'Consultas 24/7',
+    diagramImg: archIma,
     challenge:
-      'Gestión caótica de permisos, falta de trazabilidad y riesgos de filtración en la documentación legal e interna de la empresa.',
+      'Saturación del equipo comercial ante cientos de mensajes diarios por WhatsApp solicitando información de catálogo, precios y presupuestos fuera de horario laboral.',
     solution:
-      'Plataforma web construida con React y Supabase (PostgreSQL RLS) con control de acceso basado en roles (RBAC), auditoría inmutable de lecturas y versionado completo de archivos.',
-    impact: 'Resguardo e inmutabilidad del 100% de la documentación crítica corporativa con auditoría en tiempo real.',
-    stack: ['React', 'TailwindCSS', 'Supabase', 'PostgreSQL', 'TypeScript'],
+      'Arquitectura de agente conversacional con estado desarrollada en Adakademy usando Python, FastAPI y LangGraph (StateGraph), conectada a búsqueda vectorial con pgvector en Supabase y la API oficial de WhatsApp.',
+    impact:
+      'Automatización de más del 80% de las consultas y cotizaciones entrantes, reduciendo el tiempo de respuesta de horas a menos de 3 segundos sin alucinaciones de precios.',
+    stack: ['Python', 'LangGraph', 'FastAPI', 'pgvector (RAG)', 'Supabase', 'WhatsApp API'],
     architecture: {
-      pattern: 'Row Level Security (RLS) Driven Architecture',
-      summary: 'Sistema empresarial donde la seguridad y las políticas de acceso se ejecutan directamente en el motor de datos.',
+      pattern: 'Máquina de Estados Cíclica (LangGraph StateGraph) + RAG Semántico',
+      summary:
+        'Orquestación cognitiva multi-turno que combina comprensión en lenguaje natural con herramientas de cálculo determinista en Python.',
       layers: [
         {
-          name: '1. Frontend Reactivo & Previewer',
-          tech: 'React 19 + TailwindCSS + Drag & Drop UI',
-          role: 'Navegador de archivos de alto rendimiento con previsualización segura de documentos sin descarga directa.',
+          name: '1. Receptor Asíncrono de Webhooks',
+          tech: 'FastAPI + Pydantic v2 + HMAC Verification',
+          role: 'Ingesta de eventos de Meta WhatsApp Cloud API con validación criptográfica de firmas y control de mensajes duplicados.',
         },
         {
-          name: '2. Capa de Autenticación & RBAC',
-          tech: 'Supabase Auth + JWT Custom Claims',
-          role: 'Autenticación multifactor y asignación de alcances por departamento organizacional.',
+          name: '2. Orquestador de Estado (StateGraph)',
+          tech: 'LangGraph + Session Checkpointing',
+          role: 'Grafo cíclico que mantiene la memoria de la conversación, clasifica la intención del cliente y decide qué herramienta invocar.',
         },
         {
-          name: '3. Motor de Políticas en Base de Datos',
-          tech: 'PostgreSQL Row-Level Security (RLS)',
-          role: 'Políticas declarativas SQL que imposibilitan cualquier acceso no autorizado, incluso ante fallos de la aplicación.',
+          name: '3. Búsqueda Semántica de Catálogo (RAG)',
+          tech: 'PostgreSQL pgvector + Embeddings',
+          role: 'Localiza productos y servicios por similitud semántica incluso cuando el usuario escribe con errores ortográficos o sinónimos.',
         },
         {
-          name: '4. Almacenamiento & Auditoría Forense',
-          tech: 'S3 Storage (Signed URLs) + Triggers SQL',
-          role: 'Descargas temporales firmadas con expiración a los 60s y registro inmutable de cada lectura o modificación.',
+          name: '4. Cotizador Determinista & Handoff Humano',
+          tech: 'Python Pricing Tool + Derivación Inteligente',
+          role: 'Ejecuta toda la matemática de precios e impuestos en código backend seguro y transfiere al asesor humano si detecta casos complejos.',
         },
       ],
       keyDecisions: [
-        'Despliegue de seguridad en el núcleo de la base de datos (RLS) en vez de depender exclusivamente del código frontend.',
-        'URLs temporales firmadas para evitar URLs públicas de almacenamiento expuestas a fugas.',
-        'Triggers automáticos en PostgreSQL para auditoría ciega que los usuarios ni administradores pueden alterar.',
+        'Separación total entre el razonamiento lingüístico del LLM y el cálculo matemático de precios para garantizar 0% de alucinaciones financieras.',
+        'Uso de grafos cíclicos en LangGraph para permitir que el usuario modifique cantidades o ítems sin perder el hilo de la cotización.',
+        'Validación estricta de argumentos de tool-calling mediante esquemas Pydantic antes de consultar la base de datos.',
+      ],
+    },
+  },
+  {
+    id: '05',
+    title: 'Middleware de Pasarela de Pagos & Idempotencia',
+    category: 'Backend, Concurrency & FinTech',
+    filterTag: 'backend',
+    icon: Shield,
+    metric: '99.99%',
+    metricLabel: 'Disponibilidad',
+    diagramImg: archPayments,
+    challenge:
+      'Evitar cobros duplicados y condiciones de carrera al procesar webhooks financieros bajo picos de tráfico y reintentos automáticos de red entre sistemas empresariales y bancos.',
+    solution:
+      'Construcción de un middleware transaccional en NestJS y Node.js con bloqueos distribuidos en Redis (patrón Redlock), validación de firmas HMAC, Circuit Breaker y auditoría cifrada con AES-256 en PostgreSQL.',
+    impact:
+      'Cero cobros duplicados en producción, latencia promedio inferior a 250ms y 99.99% de disponibilidad operativa en ráfagas concurrentes.',
+    stack: ['NestJS', 'Node.js', 'Redis (Redlock)', 'PostgreSQL', 'TypeScript', 'Docker'],
+    architecture: {
+      pattern: 'Middleware Perimetral con Idempotencia Distribuida (Redlock) & Circuit Breaker',
+      summary:
+        'Puente transaccional blindado que garantiza ejecución matemática única por cada operación financiera entrante.',
+      layers: [
+        {
+          name: '1. Controlador Perimetral & Firma Criptográfica',
+          tech: 'NestJS Edge Controller + HMAC-SHA256',
+          role: 'Verifica autenticidad, sello de tiempo e integridad del payload antes de admitir la transacción en el pipeline.',
+        },
+        {
+          name: '2. Capa de Idempotencia & Exclusión Mutua',
+          tech: 'Redis Distributed Locks (Patrón Redlock)',
+          role: 'Adquiere un bloqueo atómico en memoria por cada Idempotency-Key en <5ms, neutralizando peticiones concurrentes idénticas.',
+        },
+        {
+          name: '3. Resiliencia & Circuit Breaker',
+          tech: 'Reintentos con Backoff Exponencial',
+          role: 'Monitorea la salud de las pasarelas externas y abre el circuito ante caídas bancarias para evitar saturación en cascada.',
+        },
+        {
+          name: '4. Bóveda Transaccional & Auditoría',
+          tech: 'PostgreSQL ACID + Cifrado AES-256-GCM',
+          role: 'Almacena estados definitivos y trazas forenses inmutables verificadas con suites de carga concurrente en Jest.',
+        },
+      ],
+      keyDecisions: [
+        'Implementación de bloqueos distribuidos en Redis antes de tocar PostgreSQL para absorber ráfagas de reintentos sin degradar el motor SQL.',
+        'Política Zero-Trust en webhooks externos: sanitización y verificación de firmas obligatoria en cada endpoint.',
+        'Pruebas automatizadas de concurrencia simulando decenas de webhooks simultáneos con la misma clave transaccional.',
+      ],
+    },
+  },
+  {
+    id: '06',
+    title: 'Lidera SaaS Enterprise — Plataforma Multi-Tenant & RLS',
+    category: 'Full Stack SaaS & Security',
+    filterTag: 'fullstack',
+    icon: FileText,
+    metric: '100%',
+    metricLabel: 'Aislamiento RLS',
+    diagramImg: archLidera,
+    challenge:
+      'Proveer una plataforma web rápida e intuitiva donde múltiples empresas gestionen sus operaciones y documentos críticos con garantía absoluta de que ningún cliente pueda acceder a datos de otro.',
+    solution:
+      'Arquitectura SaaS multi-tenant con React 19, TypeScript, TanStack Query/Table y Zustand en el frontend, respaldada por políticas declarativas Row-Level Security (RLS) en PostgreSQL y pruebas End-to-End automatizadas con Playwright.',
+    impact:
+      'Aislamiento matemático del 100% entre organizaciones a nivel de motor de base de datos, tablas dinámicas instantáneas y cero regresiones en despliegues.',
+    stack: ['React 19', 'TypeScript', 'TanStack Query/Table', 'Zustand', 'PostgreSQL RLS', 'Playwright E2E'],
+    architecture: {
+      pattern: 'Database-Enforced Multi-Tenancy (PostgreSQL RLS) & Automated E2E QA',
+      summary:
+        'Plataforma empresarial donde las reglas de aislamiento por organización viven directamente en el motor SQL y se verifican continuamente.',
+      layers: [
+        {
+          name: '1. Interfaz Empresarial de Alta Densidad',
+          tech: 'React 19 + TypeScript + TanStack + Zustand',
+          role: 'Tablas interactivas con filtrado instantáneo, caché asíncrono con actualizaciones optimistas y previsualización segura de archivos.',
+        },
+        {
+          name: '2. Identidad Multi-Empresa & RBAC',
+          tech: 'Supabase Auth / Django + JWT Custom Claims',
+          role: 'Inyecta el identificador de organización (tenant_id) y el rol departamental dentro del token criptográfico de sesión.',
+        },
+        {
+          name: '3. Motor de Seguridad por Fila (RLS)',
+          tech: 'PostgreSQL Row-Level Security + Signed URLs',
+          role: 'Políticas SQL nativas que filtran cada lectura o escritura según el tenant del token, complementadas con enlaces S3 que expiran en 60s.',
+        },
+        {
+          name: '4. Pipeline de Calidad End-to-End',
+          tech: 'Playwright Automated Testing + Triggers SQL',
+          role: 'Suite E2E que simula usuarios reales verificando flujos de autenticación, aislamiento de permisos y auditoría inmutable.',
+        },
+      ],
+      keyDecisions: [
+        'Delegación de la seguridad multi-tenant al motor PostgreSQL (RLS) para impedir fugas de datos incluso ante errores humanos en controladores.',
+        'Combinación de TanStack Query para estado de servidor y Zustand para estado de interfaz, logrando navegación sin recargas.',
+        'Automatización con Playwright E2E como requisito previo a producción para blindar los flujos críticos de negocio.',
       ],
     },
   },
 ];
 
 const FILTERS = [
-  { id: 'all', label: 'Todos los Casos' },
-  { id: 'backend', label: 'Backend & Sistemas' },
-  { id: 'ai', label: 'IA & Automatización' },
-  { id: 'fullstack', label: 'Full Stack' },
+  { id: 'all', label: 'Todos los Proyectos (6)' },
+  { id: 'ai', label: 'IA, Agentes & MCP' },
+  { id: 'backend', label: 'Backend & ERP' },
+  { id: 'fullstack', label: 'Full Stack, SaaS & Mobile' },
 ];
 
 const Projects = () => {
@@ -247,12 +380,12 @@ const Projects = () => {
         >
           <div>
             <div className="section-label">
-              <Lock size={14} />
-              <span>// casos de estudio (nda)</span>
+              <Layers size={14} />
+              <span>// proyectos destacados &amp; arquitectura de sistemas</span>
             </div>
-            <h2 className="section-title">Casos de Estudio</h2>
+            <h2 className="section-title">Proyectos &amp; Casos de Estudio</h2>
             <p className="section-desc" style={{ margin: 0 }}>
-              Por acuerdos de confidencialidad (NDA), el código fuente es privado. Explora el desglose técnico y las arquitecturas diseñadas:
+              Explora los diagramas de arquitectura, el flujo de información entre capas y las decisiones de ingeniería de mis desarrollos principales:
             </p>
           </div>
 
@@ -350,7 +483,7 @@ const Projects = () => {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         gap: '1rem',
-                        marginBottom: '1.25rem',
+                        marginBottom: '1.15rem',
                         paddingBottom: '0.85rem',
                         borderBottom: '1px solid var(--border-muted)',
                       }}
@@ -424,7 +557,7 @@ const Projects = () => {
                     {/* Title */}
                     <h3
                       style={{
-                        fontSize: '1.2rem',
+                        fontSize: '1.18rem',
                         fontWeight: 700,
                         color: 'var(--text-primary)',
                         lineHeight: 1.3,
@@ -435,10 +568,59 @@ const Projects = () => {
                       {proj.title}
                     </h3>
 
+                    {/* Interactive Architecture Diagram Preview Card */}
+                    {proj.diagramImg && (
+                      <div
+                        onClick={() => setSelectedArchitecture(proj)}
+                        title="Haz clic para ampliar el diagrama de arquitectura y flujo de datos"
+                        style={{
+                          position: 'relative',
+                          borderRadius: '10px',
+                          overflow: 'hidden',
+                          border: '1px solid var(--border-subtle)',
+                          background: '#0c0a09',
+                          marginBottom: '1rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <img
+                          src={proj.diagramImg}
+                          alt={`Arquitectura ${proj.title}`}
+                          loading="lazy"
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            display: 'block',
+                            transition: 'transform 0.3s ease',
+                          }}
+                        />
+                        <div
+                          style={{
+                            position: 'absolute',
+                            bottom: '8px',
+                            right: '8px',
+                            background: 'rgba(12, 10, 9, 0.85)',
+                            border: '1px solid var(--border-subtle)',
+                            borderRadius: '6px',
+                            padding: '0.2rem 0.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            fontSize: '0.68rem',
+                            fontFamily: 'var(--font-mono)',
+                            color: 'var(--amber)',
+                          }}
+                        >
+                          <Maximize2 size={11} />
+                          <span>Ampliar Flujo</span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* Solution Details */}
                     <p
                       style={{
-                        fontSize: '0.9rem',
+                        fontSize: '0.88rem',
                         color: 'var(--text-secondary)',
                         lineHeight: 1.6,
                         marginBottom: '1rem',
@@ -453,7 +635,7 @@ const Projects = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: '8px',
-                        fontSize: '0.82rem',
+                        fontSize: '0.81rem',
                         color: '#fbbf24',
                         background: 'rgba(245, 158, 11, 0.04)',
                         border: '1px solid rgba(245, 158, 11, 0.12)',
@@ -492,44 +674,69 @@ const Projects = () => {
                           <span
                             key={tech}
                             className="pill"
-                            style={{ fontSize: '0.72rem', padding: '0.2rem 0.55rem' }}
+                            style={{ fontSize: '0.7rem', padding: '0.2rem 0.52rem' }}
                           >
                             {tech}
                           </span>
                         ))}
                       </div>
 
-                      {proj.architecture && (
-                        <button
-                          onClick={() => setSelectedArchitecture(proj)}
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            fontSize: '0.78rem',
-                            fontFamily: 'var(--font-mono)',
-                            color: 'var(--amber)',
-                            background: 'rgba(245, 158, 11, 0.08)',
-                            border: '1px solid var(--border-subtle)',
-                            padding: '0.35rem 0.75rem',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'var(--amber)';
-                            e.currentTarget.style.color = '#0c0a09';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
-                            e.currentTarget.style.color = 'var(--amber)';
-                          }}
-                        >
-                          <Layers size={13} />
-                          <span>Ver Arquitectura</span>
-                        </button>
-                      )}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        {proj.repoUrl && (
+                          <a
+                            href={proj.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '5px',
+                              fontSize: '0.75rem',
+                              fontFamily: 'var(--font-mono)',
+                              color: 'var(--text-primary)',
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid var(--border-muted)',
+                              padding: '0.35rem 0.65rem',
+                              borderRadius: '6px',
+                            }}
+                          >
+                            <ExternalLink size={12} />
+                            <span>GitHub</span>
+                          </a>
+                        )}
+
+                        {proj.architecture && (
+                          <button
+                            onClick={() => setSelectedArchitecture(proj)}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '6px',
+                              fontSize: '0.76rem',
+                              fontFamily: 'var(--font-mono)',
+                              color: 'var(--amber)',
+                              background: 'rgba(245, 158, 11, 0.08)',
+                              border: '1px solid var(--border-subtle)',
+                              padding: '0.35rem 0.75rem',
+                              borderRadius: '6px',
+                              fontWeight: 600,
+                              cursor: 'pointer',
+                              transition: 'all 0.2s ease',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = 'var(--amber)';
+                              e.currentTarget.style.color = '#0c0a09';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = 'rgba(245, 158, 11, 0.08)';
+                              e.currentTarget.style.color = 'var(--amber)';
+                            }}
+                          >
+                            <Layers size={13} />
+                            <span>Ver Arquitectura</span>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -562,7 +769,7 @@ const Projects = () => {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'rgba(12, 10, 9, 0.85)',
+                background: 'rgba(12, 10, 9, 0.88)',
                 backdropFilter: 'blur(10px)',
               }}
             />
@@ -576,14 +783,14 @@ const Projects = () => {
               style={{
                 position: 'relative',
                 width: '100%',
-                maxWidth: '780px',
-                maxHeight: '90vh',
+                maxWidth: '860px',
+                maxHeight: '92vh',
                 background: 'var(--bg-card)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '20px',
                 padding: '2rem',
                 overflowY: 'auto',
-                boxShadow: '0 24px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.1)',
+                boxShadow: '0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.12)',
                 zIndex: 101,
               }}
             >
@@ -594,7 +801,7 @@ const Projects = () => {
                   justifyContent: 'space-between',
                   alignItems: 'flex-start',
                   gap: '1rem',
-                  marginBottom: '1.5rem',
+                  marginBottom: '1.25rem',
                   paddingBottom: '1rem',
                   borderBottom: '1px solid var(--border-muted)',
                 }}
@@ -616,13 +823,13 @@ const Projects = () => {
                       {selectedArchitecture.category}
                     </span>
                     <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                      // ANÁLISIS DE ARQUITECTURA
+                      // DIAGRAMA DE ARQUITECTURA &amp; FLUJO DE DATOS
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                     {selectedArchitecture.title}
                   </h3>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--amber)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
+                  <div style={{ fontSize: '0.84rem', color: 'var(--amber)', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>
                     Patrón: {selectedArchitecture.architecture.pattern}
                   </div>
                 </div>
@@ -657,9 +864,29 @@ const Projects = () => {
               </div>
 
               {/* Summary */}
-              <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.75rem' }}>
+              <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
                 {selectedArchitecture.architecture.summary}
               </p>
+
+              {/* Full Resolution Architecture Diagram */}
+              {selectedArchitecture.diagramImg && (
+                <div
+                  style={{
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    border: '1px solid var(--border-subtle)',
+                    background: '#0c0a09',
+                    marginBottom: '1.75rem',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                  }}
+                >
+                  <img
+                    src={selectedArchitecture.diagramImg}
+                    alt={`Diagrama de arquitectura de ${selectedArchitecture.title}`}
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                  />
+                </div>
+              )}
 
               {/* Layers Breakdown */}
               <div style={{ marginBottom: '2rem' }}>
@@ -677,7 +904,7 @@ const Projects = () => {
                   }}
                 >
                   <Network size={14} />
-                  <span>Flujo de Datos & Capas de Sistema</span>
+                  <span>Desglose de Flujos de Información &amp; Capas</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
@@ -760,7 +987,30 @@ const Projects = () => {
               </div>
 
               {/* Close Button Footer */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                {selectedArchitecture.repoUrl ? (
+                  <a
+                    href={selectedArchitecture.repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      fontSize: '0.84rem',
+                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--amber)',
+                    }}
+                  >
+                    <ExternalLink size={14} />
+                    <span>Ver Repositorio Público en GitHub</span>
+                  </a>
+                ) : (
+                  <span style={{ fontSize: '0.76rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                    <Lock size={12} /> Código protegido por acuerdo de confidencialidad (NDA)
+                  </span>
+                )}
+
                 <button
                   onClick={() => setSelectedArchitecture(null)}
                   className="btn-amber"
